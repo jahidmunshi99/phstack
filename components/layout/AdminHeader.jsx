@@ -1,6 +1,6 @@
 const AdminHeader = () => {
   return (
-    <header className="w-full bg-[#081229] shadow-sm p-4 flex items-center justify-between z-10 fixed top-0 left-0">
+    <header className="w-full bg-[#081229] shadow-sm p-4 flex items-center justify-between z-100 fixed top-0 left-0">
       <span className="text-xl text-white">
         Welcome to Proghive Task Management System
       </span>
