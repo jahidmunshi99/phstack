@@ -1,6 +1,6 @@
 import AdminHeader from "@/components/layout/AdminHeader";
 import AdminSidebar from "@/components/layout/AdminSidebar"
-
+import MainLayout from "@/components/layout/MainLayout"
 export default function AdminLayout({
 children,
 }:{
@@ -11,19 +11,16 @@ return (
 
 <div className="min-h-screen flex flex-col">
 
-<AdminHeader/>
+    <AdminHeader/>
 
-<div className="flex flex-1">
+    <div className="flex flex-1">
 
-<AdminSidebar/>
+    <AdminSidebar/>
+    <MainLayout>
+        {children}
+    </MainLayout>
 
-<main className="flex-1 bg-gray-100">
-
-{children}
-
-</main>
-
-</div>
+    </div>
 </div>
 
 )

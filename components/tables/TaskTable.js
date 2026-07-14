@@ -48,114 +48,151 @@ const getStatusClass = (status) => {
 
 export default function TaskTable() {
   return (
-    <section className="rounded-lg bg-white p-4 shadow-md">
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-100">
-            <tr>
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase">
-                ID
-              </th>
-
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase">
-                Client Name
-              </th>
-
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase">
-                Platform
-              </th>
-
-              <th className="px-4 py-3 text-left text-xs font-semibold uppercase">
-                Budget
-              </th>
-
-              <th className="px-4 py-3 text-center text-xs font-semibold uppercase">
-                Status
-              </th>
-
-              <th className="px-4 py-3 text-center text-xs font-semibold uppercase">
-                Delivery Time
-              </th>
-
-              <th className="px-4 py-3 text-center text-xs font-semibold uppercase">
-                Handle By
-              </th>
-
-              <th className="px-4 py-3 text-center text-xs font-semibold uppercase">
-                Actions
-              </th>
-            </tr>
-          </thead>
-
-          <tbody className="divide-y divide-gray-200">
-            {tasks.map((task) => (
-              <tr key={task.client_id} className="hover:bg-gray-50">
-                <td className="px-4 py-3">{task.client_id}</td>
-
-                <td className="px-4 py-3 font-medium">
-                  {task.client_name}
-                </td>
-
-                <td className="px-4 py-3">{task.platform}</td>
-
-                <td className="px-4 py-3">
-                  ৳ {task.budget.toLocaleString()}
-                </td>
-
-                <td className="px-4 py-3 text-center">
-                  <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium ${getStatusClass(
-                      task.order_status
-                    )}`}
-                  >
-                    {task.order_status}
-                  </span>
-                </td>
-
-                <td className="px-4 py-3 text-center">
-                  {task.delivery_time}
-                </td>
-
-                <td className="px-4 py-3 text-center">
-                  {task.handle_by}
-                </td>
-
-                <td className="px-4 py-3">
-                  <div className="flex justify-center gap-2">
-                    <button className="rounded bg-blue-500 px-3 py-1 text-white hover:bg-blue-600">
-                      View
-                    </button>
-
-                    <button className="rounded bg-green-500 px-3 py-1 text-white hover:bg-green-600">
-                      Edit
-                    </button>
-
-                    <button className="rounded bg-red-500 px-3 py-1 text-white hover:bg-red-600">
-                      Delete
-                    </button>
+      <section className="bg-white shadow-md rounded-lg px-3 py-2">
+        {/* <!-- Table --> */}
+        <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-200">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"
+                >
+                  <div className="flex items-center space-x-1">
+                    <span>ID</span>
                   </div>
-                </td>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"
+                >
+                  <div className="flex items-center space-x-1">
+                    <span>Clients Name</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-4 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                >
+                  <div className="flex items-center space-x-1">
+                    <span>Platform</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-left text-xs font-medium  uppercase tracking-wider"
+                >
+                  <div className="flex items-center space-x-1">
+                    <span>Value</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  <div className="flex items-center justify-center space-x-1">
+                    <span>Status</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  <div className="flex items-center justify-center space-x-1">
+                    <span>Delivery Date</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  <div className="flex items-center justify-center space-x-1">
+                    <span>Author</span>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-center text-xs font-medium uppercase tracking-wider"
+                >
+                  <span>Actions</span>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
 
-      <div className="mt-4 flex flex-wrap items-center justify-between text-sm text-gray-600">
-        <span>
-          Showing 1 to {tasks.length} of {tasks.length} entries
-        </span>
-
-        <div className="mt-2 flex gap-2">
-          <button className="rounded border px-4 py-2 hover:bg-gray-100">
-            Previous
-          </button>
-
-          <button className="rounded border px-4 py-2 hover:bg-gray-100">
-            Next
-          </button>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {tasks.map((item, index) => (
+                  <tr key={index} className="hover:bg-[#D1D9FE]">
+                    <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900 text-left">
+                      {item.client_id}
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                      <div className="font-medium capitalize">
+                        {item.client_name}
+                      </div>
+                    </td>
+                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900 text-left">
+                      <span className="capitalize">{item.platform}</span>
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900 text-left">
+                      ${item.budget}
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900 text-center">
+                      <div className="flex gap-2 items-center">
+                        <span className="capitalize">{item.order_status}</span>
+                        <span className="cursor-pointer ">
+                          icon
+                        </span>
+                      </div>
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900 text-center">
+                      2hrs 5min
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-sm text-gray-900 text-center">
+                      <span className="capitalize">nayem</span>
+                    </td>
+                    <td className="px-6 py-1 whitespace-nowrap text-center text-sm font-medium">
+                      <button
+                        className="text-gray-600 hover:text-blue-900 px-2 py-1 inline-block cursor-pointer"
+                      >
+                        <span className="text-[16px]">eye</span>
+                      </button>
+                      <button>
+                        <span className="text-[15px] font-bold">edit</span>
+                      </button>
+                      <button
+                        className="text-red-600 hover:text-red-900 px-2 py-1 inline-block cursor-pointer"
+                      >
+                        <span className="text-[18px]">delete</span>
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
         </div>
-      </div>
-    </section>
+        {/** Footer Page Numbering */}
+        <div className="mt-4 flex justify-between items-center text-sm text-gray-600 flex-wrap">
+          <span>
+            Showing 10 to 40 of 0
+            entries
+          </span>
+          <div className="flex space-x-2 mt-2 sm:mt-0">
+            <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-200 transition-colors cursor-pointer">
+              Previous
+            </button>
+            <button className="px-4 py-2 border border-gray-300 rounded-md text-gray-600 hover:bg-gray-200 transition-colors cursor-pointer">
+              Next
+            </button>
+          </div>
+        </div>
+      </section>
   );
 }
+
+
+
+
+
+
+
