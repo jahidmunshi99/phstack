@@ -1,9 +1,9 @@
-import React from 'react'
-
-const MainLayout = ({children}) => {
+const MainLayout = ({ children }) => {
   return (
-    <main className="mx-5 md:px-5 md:ml-70 pt-18 pb-5 rounded">{children}</main>
-  )
-}
+    <main className="mx-5 md:px-1 md:ml-70 pt-20 pb-5 rounded ">
+      {children}
+    </main>
+  );
+};
 
-export default MainLayout
+export default MainLayout;

@@ -1,6 +1,4 @@
-
-import Link from "next/link";
-import Icons from "../common/Icons";
+import MenuList from "@/components/layout/MenuList";
 
 const Sidebar = () => {
   return (
@@ -21,7 +19,7 @@ const Sidebar = () => {
       </div> */}
 
       {/* <!-- Navigation --> */}
-      <nav className="flex-1">
+      {/* <nav className="flex-1">
         <ul className="space-y-1 py-4">
           <li className="hover:bg-[#ff0042] transition px-4 py-2 bg-[#ff0042]">
             <Link href="/" className="flex items-center">
@@ -78,8 +76,9 @@ const Sidebar = () => {
             </buthrefn>
           </li>
         </ul>
-      </nav>
+      </nav> */}
+      <MenuList />
     </aside>
   );
 };
-export default Sidebar
+export default Sidebar;

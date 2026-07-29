@@ -31,9 +31,8 @@
     "**/*.mts",
     "app/error.js",
     "app/layout.js",
-    "app/page.js"
+    "app/page.js",
+    "app/(public)/rehabilitation/page.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
