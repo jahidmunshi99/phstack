@@ -1,5 +1,6 @@
 // import Icon from "../utils/Icons_ulits";
 import Button from "@/components/common/Button.jsx";
+import Link from "next/link";
 
 const filterData = {
   divisions: [
@@ -52,7 +53,9 @@ const Topbar = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button>Add New</Button>
+          <Link href="/rehabilitation/addnew">
+            <Button>Add New</Button>
+          </Link>
           <Button>Export CSV</Button>
           <Button>Print</Button>
         </div>

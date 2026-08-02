@@ -1,6 +1,6 @@
 import Topbar from "@/components/filters/Topbar.js";
 import Table from "@/components/tables/Table.js";
-const RehabilitationPage = () => {
+const DefatultPage = () => {
   return (
     <>
       <Topbar />
@@ -9,4 +9,4 @@ const RehabilitationPage = () => {
   );
 };
 
-export default RehabilitationPage;
+export default DefatultPage;
