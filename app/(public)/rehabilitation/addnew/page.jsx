@@ -52,6 +52,12 @@ const materials = [
   },
 ];
 
+const seassions = [
+  { name: "Robi" },
+  { name: "Kharif-1" },
+  { name: "Kharif-2" },
+];
+
 const AddnewPage = () => {
   const [selectedMaterial, setSelectedMaterial] = useState([0]);
   const { register, handleSubmit, watch } = useForm();
@@ -63,6 +69,12 @@ const AddnewPage = () => {
   const handleFormSubmit = (data) => {
     // Handle form submission logic here
     console.log(data);
+  };
+
+  const handleDeleteMaterial = (index) => {
+    const updatedMaterials = [...selectedMaterial];
+    updatedMaterials.splice(index, 1);
+    setSelectedMaterial(updatedMaterials);
   };
   return (
     <>
@@ -79,7 +91,7 @@ const AddnewPage = () => {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
                 <Input
                   label="GO No"
-                  value="370"
+                  placeholder="0000-000-000-000-00"
                   {...register("go_number", { required: true })}
                 />
 
@@ -91,25 +103,25 @@ const AddnewPage = () => {
 
                 <Input
                   label="Title"
-                  value="লেবু চারা প্রণোদনা"
+                  placeholder="লেবু চারা প্রণোদনা"
                   {...register("title", { required: true })}
                 />
 
                 <Input
                   label="Financial Year"
-                  value="2025-26"
+                  placeholder="2025-26"
                   {...register("financial_year", { required: true })}
                 />
 
-                <Input
+                <Select
                   label="Season"
-                  value="Robi"
+                  value={seassions}
                   {...register("season", { required: true })}
                 />
 
                 <Input
                   label="Total Beneficiaries"
-                  value="1500"
+                  placeholder="0"
                   {...register("total_beneficiaries", { required: true })}
                 />
 
@@ -154,35 +166,55 @@ const AddnewPage = () => {
               </div>
 
               <div className="space-y-3">
-                {selectedMaterial.map((item, index) => (
-                  <div
-                    key={index}
-                    className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
-                  >
-                    <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
-                      <div className="md:col-span-4">
-                        <Select value={values} />
-                      </div>
+                {selectedMaterial.map((item, index) =>
+                  item === null ? (
+                    <div key={index}> No Items added yet</div>
+                  ) : (
+                    <div
+                      key={index}
+                      className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
+                    >
+                      <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
+                        <div className="md:col-span-4">
+                          <Select
+                            value={values}
+                            {...register(`materials[${index}].material`, {
+                              required: true,
+                            })}
+                          />
+                        </div>
 
-                      <div className="md:col-span-3">
-                        <Input value={"0"} />
-                      </div>
+                        <div className="md:col-span-3">
+                          <Input
+                            placeholder="0"
+                            {...register(`materials[${index}].quantity`, {
+                              required: true,
+                            })}
+                          />
+                        </div>
 
-                      <div className="md:col-span-3">
-                        <Input value={"0.0"} />
-                      </div>
+                        <div className="md:col-span-3">
+                          <Input
+                            placeholder="0.0"
+                            {...register(`materials[${index}].price`, {
+                              required: true,
+                            })}
+                          />
+                        </div>
 
-                      <div className="flex justify-end md:col-span-2 md:justify-center">
-                        <button
-                          type="button"
-                          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-all hover:bg-red-50 hover:text-red-600"
-                        >
-                          <MdDeleteForever className="text-2xl" />
-                        </button>
+                        <div className="flex justify-end md:col-span-2 md:justify-center">
+                          <button
+                            type="button"
+                            className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-all hover:bg-red-50 hover:text-red-600"
+                            onClick={() => handleDeleteMaterial(index)}
+                          >
+                            <MdDeleteForever className="text-2xl" />
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ),
+                )}
 
                 <Button
                   className="w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-3 font-semibold text-slate-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"

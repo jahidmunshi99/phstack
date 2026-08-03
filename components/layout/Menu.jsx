@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 const Menu = ({ label }) => {
   const pathname = usePathname();
+
   console.log(pathname);
 
   return (

@@ -1,8 +1,13 @@
 import { ChevronDown } from "lucide-react";
 
-const Select = ({ value, ...props }) => {
+const Select = ({ value, label, ...props }) => {
   return (
     <div className="relative">
+      {label && (
+        <label className="mb-2 block text-sm font-medium text-slate-700">
+          {label}
+        </label>
+      )}
       <select
         {...props}
         className="
