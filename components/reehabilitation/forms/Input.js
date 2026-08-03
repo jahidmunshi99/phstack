@@ -1,5 +1,3 @@
-import React from "react";
-
 const Input = ({ label, value = "", type = "text", ...props }) => {
   return (
     <div>
@@ -13,7 +11,7 @@ const Input = ({ label, value = "", type = "text", ...props }) => {
         {...props}
         type={type}
         defaultValue={value}
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
+        className="w-full rounded-lg border border-slate-300 p-2 focus:border-blue-500 focus:outline-none"
       />
     </div>
   );

@@ -6,14 +6,14 @@ const Select = ({ value, ...props }) => {
       <select
         {...props}
         className="
-          h-11
+          h-10
           w-full
           appearance-none
           rounded-lg
           border
           border-slate-300
           bg-white
-          px-3
+          px-2
           pr-10
           text-sm
           text-slate-700
@@ -22,6 +22,7 @@ const Select = ({ value, ...props }) => {
           focus:outline-none
           focus:ring-4
           focus:ring-blue-100
+          uppercase
         "
       >
         {value.map((item) => (

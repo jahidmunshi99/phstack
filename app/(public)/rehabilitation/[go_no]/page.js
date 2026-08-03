@@ -7,19 +7,24 @@ export default function RehabilitationPage() {
     <>
       <div className="flex justify-between">
         <div className="grid-cols-1">
-          <Link href="/rehabilitation" className="mb-2 inline-block">
+          <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               <IoReturnDownBack className="text-lg" />
             </Button>
           </Link>
         </div>
         <div className="flex justify-items-end gap-4">
-          <Link href="/rehabilitation" className="mb-2 inline-block">
+          <Link href="/rehabilitation" className="inline-block">
+            <Button className="hover:bg-slate-900 hover:text-white">
+              Add New
+            </Button>
+          </Link>
+          <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               Export CSV
             </Button>
           </Link>
-          <Link href="/rehabilitation" className="mb-2 inline-block">
+          <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               Print
             </Button>
@@ -38,37 +43,20 @@ export default function RehabilitationPage() {
         <SummaryCard title="Completion" value="52%" />
       </section>
 
-      {/* Progress */}
-      <section className="rounded-xl bg-white p-6 shadow">
-        <div className="mb-2 flex justify-between">
-          <span className="font-medium">Distribution Progress</span>
-
-          <span className="font-semibold">52%</span>
-        </div>
-
-        <div className="h-3 overflow-hidden rounded-full bg-slate-200">
-          <div className="h-full bg-green-500" style={{ width: "52%" }} />
-        </div>
-      </section>
-
       {/* Distribution Table */}
 
       <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
-        {/* <!-- Title --> */}
+        <div className="border-b border-slate-200 p-6 text-start">
+          <div className="font-bold text-slate-800">কর্মসূচির নাম:</div>
 
-        <div className="border-b border-slate-200 p-6 text-center">
-          <h2 className="text-2xl font-bold text-slate-800">
-            খরিপ-১ কৃষি প্রণোদনা কর্মসূচি
-          </h2>
-
-          <p className="mt-2 text-slate-600">
-            ২০২৫-২৬ এর উপজেলাওয়ারী উপকরণ ও আর্থিক বিভাজন
-          </p>
-
-          <p className="mt-3 font-semibold text-slate-700">
-            ফসলের নামঃ উফশী আউশ
-          </p>
+          <div className="mt-2 text-slate-600">
+            <span className="font-bold">জিও নং: </span>০১-০১-০০০০-০০০১-০০১,
+            <span className="font-bold">তারিখঃ</span> ০১-০১-২০২৩ ইং,
+            <span className="font-bold">মৌসুমঃ</span>খরিপ-২
+          </div>
         </div>
+
+        {/* <!-- Title --> */}
         <div className="p-2">
           <table className="w-full border-collapse text-sm">
             {/* <!-- Header --> */}
@@ -332,6 +320,19 @@ export default function RehabilitationPage() {
           <button className="rounded-lg bg-indigo-600 px-6 py-3 font-medium text-white hover:bg-indigo-700">
             Save Upazila
           </button>
+        </div>
+      </section>
+
+      {/* Progress */}
+      <section className="rounded-xl bg-white p-6 shadow">
+        <div className="mb-2 flex justify-between">
+          <span className="font-medium">Distribution Progress</span>
+
+          <span className="font-semibold">52%</span>
+        </div>
+
+        <div className="h-3 overflow-hidden rounded-full bg-slate-200">
+          <div className="h-full bg-green-500" style={{ width: "52%" }} />
         </div>
       </section>
     </>
