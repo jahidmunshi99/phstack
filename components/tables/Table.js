@@ -90,12 +90,12 @@ const Table = () => {
                       <FaEye className="text-[16px]" />
                     </Link>
                   </a>
-                  <a
-                    href="#"
+                  <Link
+                    href={`/rehabilitation/${item?.go_no}/edit`}
                     className="text-green-600 hover:text-green-900 px-2 py-1 inline-block"
                   >
                     <FaPenToSquare className="text-[15px]" />
-                  </a>
+                  </Link>
                   <a
                     href="#"
                     className="text-red-600 hover:text-red-900 px-2 py-1 inline-block"
