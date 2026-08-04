@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-
 import PersonMaterials from "../../../../../components/reehabilitation/forms/PersonMaterials";
 import RehabilitationInfo from "../../../../../components/reehabilitation/forms/RehabilitationInfo";
 import TopDetailsLayout from "../../../../../components/reehabilitation/TopDetailsLayout";
+import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
 
 const values = [
   {
@@ -58,6 +58,10 @@ const seassions = [
 ];
 
 const EditPage = () => {
+  const existingData = useContext(RehabilitationContext);
+  console.log(existingData.data);
+  // const filterData = existingData.data.filter((item)=> item.go_no === )
+
   const [selectedMaterial, setSelectedMaterial] = useState([0]);
   const { register, handleSubmit, watch } = useForm();
   const handleAddMaterial = (item) => {

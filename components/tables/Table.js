@@ -1,12 +1,12 @@
 "use client";
-import rehabilitationData from "@/data/rehabilitationData.js";
+// import rehabilitationData from "@/data/rehabilitationData.js";
 import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-const Table = () => {
-  const data = rehabilitationData();
+const Table = ({ data }) => {
+  // const data = rehabilitationData();
   return (
     <>
       {/* <!-- Table --> */}
