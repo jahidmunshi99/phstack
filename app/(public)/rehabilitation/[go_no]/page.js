@@ -1,11 +1,8 @@
 import Button from "@/components/common/Button";
 import Link from "next/link";
 import { IoReturnDownBack } from "react-icons/io5";
-import { GetRehabilitationData } from "../../../../lib/mongodb";
 
 export default async function RehabilitationPage() {
-  const rehabilitationData = await GetRehabilitationData();
-  console.log(rehabilitationData);
   return (
     <>
       <div className="flex justify-between">

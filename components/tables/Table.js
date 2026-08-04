@@ -1,12 +1,12 @@
-"use client";
-import rehabilitationData from "@/data/rehabilitationData.js";
+// "use client";
 import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import mongoDB from "../../lib/mongodb.js";
 
-const Table = () => {
-  const data = rehabilitationData();
+const Table = async () => {
+  const data = await mongoDB();
   return (
     <>
       {/* <!-- Table --> */}
