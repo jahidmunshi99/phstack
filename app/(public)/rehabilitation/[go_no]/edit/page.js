@@ -1,55 +1,9 @@
-"use client";
-
-import { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
-import PersonMaterials from "../../../../../components/reehabilitation/forms/PersonMaterials";
-import RehabilitationInfo from "../../../../../components/reehabilitation/forms/RehabilitationInfo";
-import TopDetailsLayout from "../../../../../components/reehabilitation/TopDetailsLayout";
-import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
-
-const values = [
-  {
-    id: 1,
-    name: "mop",
-  },
-  {
-    id: 2,
-    name: "dap",
-  },
-  {
-    id: 3,
-    name: "uria",
-  },
-  {
-    id: 4,
-    name: "seeds",
-  },
-  {
-    id: 5,
-    name: "plants",
-  },
-  {
-    id: 6,
-    name: "compost",
-  },
-  {
-    id: 7,
-    name: "travel",
-  },
-  {
-    id: 8,
-    name: "others",
-  },
-];
-
-const materials = [
-  {
-    id: 1,
-    name: "mop",
-    quantity: 10,
-    budget: 100,
-  },
-];
+// import { useContext, useState } from "react";
+// import { useForm } from "react-hook-form";
+// import PersonMaterials from "../../../../../components/reehabilitation/forms/PersonMaterials";
+// import RehabilitationInfo from "../../../../../components/reehabilitation/forms/RehabilitationInfo";
+import RehabilitationForm from "../../../../../components/reehabilitation/forms/RehabilitationForm.jsx";
+// import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
 
 const seassions = [
   { name: "Robi" },
@@ -57,53 +11,15 @@ const seassions = [
   { name: "Kharif-2" },
 ];
 
-const EditPage = () => {
-  const existingData = useContext(RehabilitationContext);
-  console.log(existingData.data);
-  // const filterData = existingData.data.filter((item)=> item.go_no === )
+const EditPage = async ({ params }) => {
+  const { go_no } = await params;
+  // const { register } = formRegister();
+  console.log(go_no);
 
-  const [selectedMaterial, setSelectedMaterial] = useState([0]);
-  const { register, handleSubmit, watch } = useForm();
-  const handleAddMaterial = (item) => {
-    // Logic to add a new material entry
-    setSelectedMaterial([...selectedMaterial, item]); // Reset to the first material after adding
-  };
-
-  const handleFormSubmit = (data) => {
-    // Handle form submission logic here
-    console.log(data);
-  };
-
-  const handleDeleteMaterial = (index) => {
-    const updatedMaterials = [...selectedMaterial];
-    updatedMaterials.splice(index, 1);
-    setSelectedMaterial(updatedMaterials);
-  };
   return (
     <>
-      <TopDetailsLayout />
-      <form onSubmit={handleSubmit(handleFormSubmit)}>
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
-          {/* Left Side */}
-          <RehabilitationInfo register={register} seassions={seassions} />
+      <RehabilitationForm />
 
-          {/* Right Side */}
-          <PersonMaterials
-            selectedMaterial={selectedMaterial}
-            register={register}
-            seassions={seassions}
-            values={values}
-            handleAddMaterial={handleAddMaterial}
-            handleDeleteMaterial={handleDeleteMaterial}
-          />
-        </div>
-        {/* test button */}
-        <input
-          type="submit"
-          value="Submit"
-          className="mt-5 rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600"
-        />
-      </form>
       <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
         <div className="border-b border-slate-200 p-6 text-start">
           <div className="font-bold text-slate-800">কর্মসূচির নাম:</div>

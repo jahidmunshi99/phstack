@@ -1,22 +1,10 @@
-<<<<<<< HEAD
 "use client";
-// import rehabilitationData from "@/data/rehabilitationData.js";
-=======
-// "use client";
->>>>>>> 462c085e028c03084b21b0631dbe92da7957169d
 import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
-import mongoDB from "../../lib/mongodb.js";
 
-<<<<<<< HEAD
 const Table = ({ data }) => {
-  // const data = rehabilitationData();
-=======
-const Table = async () => {
-  const data = await mongoDB();
->>>>>>> 462c085e028c03084b21b0631dbe92da7957169d
   return (
     <>
       {/* <!-- Table --> */}
@@ -92,14 +80,14 @@ const Table = async () => {
                   2025-26
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap text-center text-sm font-medium">
-                  <a
+                  <Link
                     href="#"
                     className="text-gray-600 hover:text-blue-900 px-2 py-1 inline-block"
                   >
                     <Link href={`/rehabilitation/${item?.go_no}`}>
                       <FaEye className="text-[16px]" />
                     </Link>
-                  </a>
+                  </Link>
                   <Link
                     href={`/rehabilitation/${item?.go_no}/edit`}
                     className="text-green-600 hover:text-green-900 px-2 py-1 inline-block"

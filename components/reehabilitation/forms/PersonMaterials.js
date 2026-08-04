@@ -1,16 +1,21 @@
-import React from "react";
+"use client";
+
+import { useFormContext } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import Button from "../../common/Button";
 import Input from "./Input";
 import Select from "./Select";
 
-const PersonMaterials = ({
-  register,
-  values,
-  selectedMaterial,
-  handleAddMaterial,
-  handleDeleteMaterial,
-}) => {
+const selectedMaterial = [];
+
+const PersonMaterials = () => {
+  const {
+    register,
+    values,
+    // selectedMaterial,
+    // handleAddMaterial,
+    // handleDeleteMaterial,
+  } = useFormContext();
   return (
     <div className="xl:col-span-2">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -83,7 +88,7 @@ const PersonMaterials = ({
                   </div>
                 </div>
               </div>
-            )
+            ),
           )}
 
           <Button

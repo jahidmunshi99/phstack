@@ -1,8 +1,16 @@
-import React from "react";
+"use client";
+
+import { useFormContext } from "react-hook-form";
 import Input from "./Input";
 import Select from "./Select";
 
-const RehabilitationInfo = ({ register, seassions }) => {
+const seassions = ["robi", "kharip-1"];
+
+const RehabilitationInfo = () => {
+  const methods = useFormContext();
+
+  console.log(methods);
+  const { register } = useFormContext();
   return (
     <div className="xl:col-span-3">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
