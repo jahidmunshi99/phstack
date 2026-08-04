@@ -2,7 +2,7 @@ import Button from "@/components/common/Button";
 import Link from "next/link";
 import { IoReturnDownBack } from "react-icons/io5";
 
-export default function RehabilitationPage() {
+export default async function RehabilitationPage() {
   return (
     <>
       <div className="flex justify-between">
@@ -14,11 +14,11 @@ export default function RehabilitationPage() {
           </Link>
         </div>
         <div className="flex justify-items-end gap-4">
-          <Link href="/rehabilitation" className="inline-block">
+          {/* <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               Add New
             </Button>
-          </Link>
+          </Link> */}
           <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               Export CSV

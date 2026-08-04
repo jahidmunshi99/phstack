@@ -1,12 +1,22 @@
+<<<<<<< HEAD
 "use client";
 // import rehabilitationData from "@/data/rehabilitationData.js";
+=======
+// "use client";
+>>>>>>> 462c085e028c03084b21b0631dbe92da7957169d
 import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import mongoDB from "../../lib/mongodb.js";
 
+<<<<<<< HEAD
 const Table = ({ data }) => {
   // const data = rehabilitationData();
+=======
+const Table = async () => {
+  const data = await mongoDB();
+>>>>>>> 462c085e028c03084b21b0631dbe92da7957169d
   return (
     <>
       {/* <!-- Table --> */}
