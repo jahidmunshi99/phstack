@@ -5,9 +5,6 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 const Menu = ({ label }) => {
   const pathname = usePathname();
-
-  console.log(pathname);
-
   return (
     <li
       className={`hover:bg-[#ff0042] transition px-4 py-2 ${pathname === "/" + label.name ? "bg-[#ff0042]" : ""}`}
