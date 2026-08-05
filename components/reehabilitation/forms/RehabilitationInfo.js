@@ -4,12 +4,10 @@ import { useFormContext } from "react-hook-form";
 import Input from "./Input";
 import Select from "./Select";
 
-const seassions = ["robi", "kharip-1"];
+// const seassions = ["robi", "kharip-1"];
 
-const RehabilitationInfo = () => {
-  const methods = useFormContext();
-
-  console.log(methods);
+const RehabilitationInfo = ({ initialData }) => {
+  const { seassions, f_years } = initialData;
   const { register } = useFormContext();
   return (
     <div className="xl:col-span-3">
@@ -37,15 +35,17 @@ const RehabilitationInfo = () => {
             {...register("title", { required: true })}
           />
 
-          <Input
+          <Select
+            options={f_years}
             label="Financial Year"
-            placeholder="2025-26"
+            labelKey="f_year"
             {...register("financial_year", { required: true })}
           />
 
           <Select
             label="Season"
-            value={seassions}
+            options={seassions}
+            labelKey="s_name"
             {...register("season", { required: true })}
           />
 

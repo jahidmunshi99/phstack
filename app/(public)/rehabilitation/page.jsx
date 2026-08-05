@@ -6,7 +6,6 @@ import { useContext } from "react";
 
 const RehabilitationPage = () => {
   const data = useContext(RehabilitationContext);
-  console.log(data);
   return (
     <>
       <Topbar />

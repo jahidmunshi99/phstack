@@ -1,21 +1,27 @@
 "use client";
 
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import Button from "../../common/Button";
 import Input from "./Input";
 import Select from "./Select";
 
-const selectedMaterial = [];
-
-const PersonMaterials = () => {
+const PersonMaterials = ({ ingredients }) => {
+  const [selectedMaterial, setSelectedMaterial] = useState([]);
   const {
     register,
-    values,
+    watch
     // selectedMaterial,
-    // handleAddMaterial,
     // handleDeleteMaterial,
   } = useFormContext();
+
+  const handleAddMaterial = (item) => {
+    setSelectedMaterial((prev) => [...prev, item]);
+  };
+
+  console.log(watch("ingredients"))
+
   return (
     <div className="xl:col-span-2">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
@@ -41,19 +47,17 @@ const PersonMaterials = () => {
         </div>
 
         <div className="space-y-3">
-          {selectedMaterial.map((item, index) =>
-            item === null ? (
-              <div key={index}> No Items added yet</div>
-            ) : (
-              <div
+          {selectedMaterial.length === 0 ? (<div> No Items added yet</div>) : ( selectedMaterial.map((item, index) =>
+            <div
                 key={index}
                 className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
               >
                 <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
                   <div className="md:col-span-4">
                     <Select
-                      value={values}
-                      {...register(`materials[${index}].material`, {
+                      options={ingredients}
+                      labelKey="item"
+                      {...register(`ingredients[${index}].ingredients`, {
                         required: true,
                       })}
                     />
@@ -62,7 +66,7 @@ const PersonMaterials = () => {
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0"
-                      {...register(`materials[${index}].quantity`, {
+                      {...register(`ingredients[${index}].quantity`, {
                         required: true,
                       })}
                     />
@@ -71,7 +75,7 @@ const PersonMaterials = () => {
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0.0"
-                      {...register(`materials[${index}].price`, {
+                      {...register(`ingredients[${index}].price`, {
                         required: true,
                       })}
                     />

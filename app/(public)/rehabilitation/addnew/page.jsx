@@ -1,7 +1,8 @@
 "use client";
 
+import { useContext } from "react";
 import RehabilitationForm from "../../../../components/reehabilitation/forms/RehabilitationForm";
-
+import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
 const values = [
   {
     id: 1,
@@ -46,16 +47,12 @@ const materials = [
   },
 ];
 
-const seassions = [
-  { name: "Robi" },
-  { name: "Kharif-1" },
-  { name: "Kharif-2" },
-];
-
 const AddnewPage = () => {
+  const data = useContext(RehabilitationContext);
+  const { seassions, ingredients, f_years } = data;
   return (
     <>
-      <RehabilitationForm />
+      <RehabilitationForm initialData={{ seassions, ingredients, f_years }} />
     </>
   );
 };

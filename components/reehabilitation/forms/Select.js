@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-const Select = ({ value, label, ...props }) => {
+const Select = ({ options, label, labelKey, ...props }) => {
   return (
     <div className="relative">
       {label && (
@@ -30,9 +30,9 @@ const Select = ({ value, label, ...props }) => {
           uppercase
         "
       >
-        {value.map((item) => (
-          <option key={item.id} value={item.name}>
-            {item.name}
+        {options.map((item, index) => (
+          <option key={index} value={item[labelKey]}>
+            {item[labelKey]}
           </option>
         ))}
       </select>
