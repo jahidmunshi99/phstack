@@ -1,59 +1,30 @@
 "use client";
-
 import { useContext } from "react";
-import RehabilitationForm from "../../../../components/reehabilitation/forms/RehabilitationForm";
+import { FormProvider, useForm } from "react-hook-form";
+import PersonMaterials from "../../../../components/reehabilitation/forms/PersonMaterials.js";
+import RehabilitationInfo from "../../../../components/reehabilitation/forms/RehabilitationInfo.js";
+import TopDetailsLayout from "../../../../components/reehabilitation/TopDetailsLayout.js";
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
-const values = [
-  {
-    id: 1,
-    name: "mop",
-  },
-  {
-    id: 2,
-    name: "dap",
-  },
-  {
-    id: 3,
-    name: "uria",
-  },
-  {
-    id: 4,
-    name: "seeds",
-  },
-  {
-    id: 5,
-    name: "plants",
-  },
-  {
-    id: 6,
-    name: "compost",
-  },
-  {
-    id: 7,
-    name: "travel",
-  },
-  {
-    id: 8,
-    name: "others",
-  },
-];
-
-const materials = [
-  {
-    id: 1,
-    name: "mop",
-    quantity: 10,
-    budget: 100,
-  },
-];
 
 const AddnewPage = () => {
-  const data = useContext(RehabilitationContext);
-  const { seassions, ingredients, f_years } = data;
+  const methods = useForm();
+  const { handleSubmit } = methods;
+  const infoData = useContext(RehabilitationContext);
+  const { seassions, ingredients, f_years } = infoData;
+  const handleSubmitForm = (data) => {
+    console.log(data);
+  };
   return (
-    <>
-      <RehabilitationForm initialData={{ seassions, ingredients, f_years }} />
-    </>
+    <FormProvider {...methods}>
+      <form onSubmit={handleSubmit(handleSubmitForm)}>
+        <TopDetailsLayout />
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
+          <RehabilitationInfo initialData={{ seassions, f_years }} />
+          <PersonMaterials ingredients={ingredients} />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </FormProvider>
   );
 };
 

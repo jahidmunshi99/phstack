@@ -20,7 +20,10 @@ const PersonMaterials = ({ ingredients }) => {
     setSelectedMaterial((prev) => [...prev, item]);
   };
 
-  console.log(watch("ingredients"))
+  const handleDeleteMaterial = (index)=>{
+const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
+    setSelectedMaterial(updatedMeterial)
+  }
 
   return (
     <div className="xl:col-span-2">
@@ -47,7 +50,7 @@ const PersonMaterials = ({ ingredients }) => {
         </div>
 
         <div className="space-y-3">
-          {selectedMaterial.length === 0 ? (<div> No Items added yet</div>) : ( selectedMaterial.map((item, index) =>
+          {selectedMaterial.length === 0 ? (<div className="w-full rounded-xl border-2 border-dashed border-slate-100  py-3 font-semibold text-sm text-slate-600 transition-all text-center"> No Items added yet</div>) : ( selectedMaterial.map((item, index) =>
             <div
                 key={index}
                 className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
@@ -57,7 +60,7 @@ const PersonMaterials = ({ ingredients }) => {
                     <Select
                       options={ingredients}
                       labelKey="item"
-                      {...register(`ingredients[${index}].ingredients`, {
+                      {...register(`ingredients[${index}].name`, {
                         required: true,
                       })}
                     />
@@ -97,9 +100,7 @@ const PersonMaterials = ({ ingredients }) => {
 
           <Button
             className="w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-3 font-semibold text-slate-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"
-            onClick={() => {
-              handleAddMaterial();
-            }}
+            onClick={handleAddMaterial}
           >
             + Add Material
           </Button>
