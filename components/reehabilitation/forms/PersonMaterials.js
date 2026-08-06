@@ -60,7 +60,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                     <Select
                       options={ingredients}
                       labelKey="item"
-                      {...register(`ingredients[${index}].name`, {
+                      {...register(`ingredients_per_person[${index}].name`, {
                         required: true,
                       })}
                     />
@@ -69,7 +69,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0"
-                      {...register(`ingredients[${index}].quantity`, {
+                      {...register(`ingredients_per_person[${index}].quantity`, {
                         required: true,
                       })}
                     />
@@ -78,7 +78,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0.0"
-                      {...register(`ingredients[${index}].price`, {
+                      {...register(`ingredients_per_person[${index}].price`, {
                         required: true,
                       })}
                     />

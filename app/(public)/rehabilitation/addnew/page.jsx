@@ -8,11 +8,17 @@ import { RehabilitationContext } from "../../../../provider/reehabilitationProvi
 
 const AddnewPage = () => {
   const methods = useForm();
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
   const infoData = useContext(RehabilitationContext);
   const { seassions, ingredients, f_years } = infoData;
+
   const handleSubmitForm = (data) => {
-    console.log(data);
+    const allData = {
+      ...data,
+      createdAt: new Date().toISOString(),
+      createdBy: "admin",
+    };
+    console.log(allData);
   };
   return (
     <FormProvider {...methods}>
