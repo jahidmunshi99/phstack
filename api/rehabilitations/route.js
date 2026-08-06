@@ -17,3 +17,28 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+// Post Data to MongoDB
+
+export async function POST(request) {
+  try {
+    await connectMongo();
+
+    const body = await request.json();
+
+    const rehabilitation = await RehabilitationsModel.create(body);
+
+    return NextResponse.json({
+      success: true,
+      rehabilitation,
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        success: false,
+        message: error.message,
+      },
+      { status: 500 }
+    );
+  }
+}
