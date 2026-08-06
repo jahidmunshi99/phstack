@@ -1,20 +1,17 @@
-import clientPromise from "@/lib/mongodb";
 import { NextResponse } from "next/server";
+import connectMongo from "../../dbConnect/connectMongo";
+import mongoDB from "../../lib/mongodb";
 
 export async function GET() {
   try {
-    const client = await clientPromise;
-
-    const db = client.db("drms");
-
-    const rehabilitations = await db
-      .collection("rehabilitations")
-      .find({})
-      .toArray();
-
-    return NextResponse.json(rehabilitations);
+    await connectMongo();
+    const rehabilitations = await RehabilitationsModel.find().sort({
+      createdOn: -1,
+    });
+    const res = JSON.parse(JSON.stringify(rehabilitations));
+    return res;
   } catch (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.log("this error from get faq actions", error);
   }
 }
 
@@ -22,7 +19,7 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    await connectMongo();
+    await mongoDB();
 
     const body = await request.json();
 
@@ -38,7 +35,7 @@ export async function POST(request) {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
