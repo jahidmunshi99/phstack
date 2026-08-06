@@ -20,7 +20,7 @@ const AddnewPage = () => {
     };
 
     try {
-      const response = await fetch("app/api/rehabilitations/route.js", {
+      const response = await fetch("app/api/rehabilitations/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

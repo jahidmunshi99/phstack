@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+<<<<<<< HEAD
 import connectMongo from "../../dbConnect/connectMongo.js";
 import RehabilitationsModel from "../../models/rehabilitationsModel";
 
@@ -57,12 +58,28 @@ export async function GET() {
   const data = await res.json();
 
   return Response.json({ data });
+=======
+import connectMongo from "../../dbConnect/connectMongo";
+import mongoDB from "../../lib/mongodb";
+
+export async function GET() {
+  try {
+    await connectMongo();
+    const rehabilitations = await RehabilitationsModel.find().sort({
+      createdOn: -1,
+    });
+    const res = JSON.parse(JSON.stringify(rehabilitations));
+    return res;
+  } catch (error) {
+    console.log("this error from get faq actions", error);
+  }
+>>>>>>> refs/remotes/origin/main
 }
 
 // Post Data to MongoDB
 export async function POST(request) {
   try {
-    await connectMongo();
+    await mongoDB();
 
     const body = await request.json();
 
@@ -78,7 +95,7 @@ export async function POST(request) {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
