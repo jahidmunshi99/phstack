@@ -19,8 +19,10 @@ const AddnewPage = () => {
       createdBy: "admin",
     };
 
+    console.log(allData);
+
     try {
-      const response = await fetch("app/api/rehabilitations/", {
+      const response = await fetch("/api/rehabilitations", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,16 +32,15 @@ const AddnewPage = () => {
 
       const result = await response.json();
 
+      console.log("API Response:", result);
+
       if (!response.ok) {
-        throw new Error(result.message || "Something went wrong");
+        throw new Error(result.message || "Failed to save");
       }
 
-      console.log("Saved Successfully:", result);
-
-      // Optional: reset the form
-      methods.reset();
+      console.log("Saved successfully:", result);
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
   return (

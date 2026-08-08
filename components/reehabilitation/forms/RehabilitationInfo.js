@@ -4,8 +4,6 @@ import { useFormContext } from "react-hook-form";
 import Input from "./Input";
 import Select from "./Select";
 
-// const seassions = ["robi", "kharip-1"];
-
 const RehabilitationInfo = ({ initialData }) => {
   const { seassions, f_years } = initialData;
   const { register } = useFormContext();
@@ -20,7 +18,7 @@ const RehabilitationInfo = ({ initialData }) => {
           <Input
             label="GO No"
             placeholder="0000-000-000-000-00"
-            {...register("go_number", { required: true })}
+            {...register("go_no", { required: true })}
           />
 
           <Input
@@ -39,20 +37,20 @@ const RehabilitationInfo = ({ initialData }) => {
             options={f_years}
             label="Financial Year"
             labelKey="f_year"
-            {...register("financial_year", { required: true })}
+            {...register("f_year", { required: true })}
           />
 
           <Select
             label="Season"
             options={seassions}
             labelKey="s_name"
-            {...register("season", { required: true })}
+            {...register("session", { required: true })}
           />
 
           <Input
             label="Total Beneficiaries"
             placeholder="0"
-            {...register("total_beneficiaries", { required: true })}
+            {...register("total_beneficiary", { required: true })}
           />
 
           <Input label="Total Seed (MT)" disabled value="1500" />

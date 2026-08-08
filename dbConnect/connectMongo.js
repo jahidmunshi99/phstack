@@ -1,28 +1,32 @@
 import mongoose from "mongoose";
 
 const MONGO_URI = process.env.MONGO_URI;
+
 const cached = {};
+
 async function connectMongo() {
   if (!MONGO_URI) {
-    throw new Error(
-      "Please define the MONGO_URI environment variable inside .env.local",
-    );
+    throw new Error("Please define MONGO_URI inside .env.local");
   }
+
   if (cached.connection) {
     return cached.connection;
   }
+
   if (!cached.promise) {
-    const opts = {
+    cached.promise = mongoose.connect(MONGO_URI, {
       bufferCommands: false,
-    };
-    cached.promise = mongoose.connect(MONGO_URI, opts);
+    });
   }
+
   try {
     cached.connection = await cached.promise;
-  } catch (e) {
+  } catch (error) {
     cached.promise = undefined;
-    throw e;
+    throw error;
   }
+
   return cached.connection;
 }
+
 export default connectMongo;

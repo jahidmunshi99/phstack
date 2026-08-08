@@ -5,6 +5,7 @@ import RehabilitationsModel from "../../models/rehabilitationsModel.js";
 export const getRehabilitations = async () => {
   try {
     await connectMongo();
+    console.log("mongo db Connected");
     const rehabilitations = await RehabilitationsModel.find().sort({
       createdOn: -1,
     });
