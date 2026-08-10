@@ -1,16 +1,17 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import TopDetailsLayout from "../../../../components/reehabilitation/TopDetailsLayout.js";
 import PersonMaterials from "../../../../components/reehabilitation/forms/PersonMaterials.js";
 import RehabilitationInfo from "../../../../components/reehabilitation/forms/RehabilitationInfo.js";
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
-
 const AddnewPage = () => {
   const methods = useForm();
   const { handleSubmit, watch } = methods;
   const infoData = useContext(RehabilitationContext);
   const { seassions, ingredients, f_years } = infoData;
+  const router = useRouter();
 
   const handleSubmitForm = async (data) => {
     const allData = {
@@ -30,13 +31,20 @@ const AddnewPage = () => {
         body: JSON.stringify(allData),
       });
 
-      const result = await response.json();
-
-      console.log("API Response:", result);
-
-      if (!response.ok) {
+      if (response.ok) {
+        router.push("/rehabilitation");
+        console.log("API Response:", result);
+      } else {
         throw new Error(result.message || "Failed to save");
       }
+
+      // const result = await response.json();
+
+      // console.log("API Response:", result);
+
+      // if (!response.ok) {
+      //   throw new Error(result.message || "Failed to save");
+      // }
 
       console.log("Saved successfully:", result);
     } catch (error) {
