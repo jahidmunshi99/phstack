@@ -83,7 +83,7 @@ const Table = async ({ data }) => {
                     href="#"
                     className="text-gray-600 hover:text-blue-900 px-2 py-1 inline-block"
                   >
-                    <Link href={`/rehabilitation/${item?.go_no}`}>
+                    <Link href={`/rehabilitation/${item?._id}`}>
                       <FaEye className="text-[16px]" />
                     </Link>
                   </Link>
@@ -93,12 +93,12 @@ const Table = async ({ data }) => {
                   >
                     <FaPenToSquare className="text-[15px]" />
                   </Link>
-                  <a
+                  <Link
                     href="#"
                     className="text-red-600 hover:text-red-900 px-2 py-1 inline-block"
                   >
                     <MdDelete className="text-[18px]" />
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

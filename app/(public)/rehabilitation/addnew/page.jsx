@@ -9,8 +9,9 @@ import { RehabilitationContext } from "../../../../provider/reehabilitationProvi
 const AddnewPage = () => {
   const methods = useForm();
   const { handleSubmit } = methods;
-  const infoData = useContext(RehabilitationContext);
-  const { seassions, ingredients, f_years } = infoData;
+  const { seassions, ingredients, f_years } = useContext(RehabilitationContext);
+  console.log(seassions);
+  // const { seassions, ingredients, f_years } = data;
   const router = useRouter();
 
   const handleSubmitForm = async (data) => {
@@ -51,6 +52,13 @@ const AddnewPage = () => {
       console.error("Error:", error);
     }
   };
+  const test = async () => {
+    const response = await fetch("/api/rehabilitations");
+    const data = await response.json();
+    console.log(data.data);
+  };
+  test();
+
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSubmitForm)}>

@@ -6,25 +6,18 @@ import RehabilitationsModel from "../../../models/rehabilitationsModel.js";
 export async function GET() {
   try {
     await connectMongo();
-    // await mongoDB();
     const rehabilitations = await RehabilitationsModel.find().sort({
       createdOn: -1,
     });
     const res = JSON.parse(JSON.stringify(rehabilitations));
     return NextResponse.json({
       success: true,
-      data: rehabilitations,
+      data: res,
     });
   } catch (error) {
     console.log("this error from get faq actions", error);
   }
 }
-
-// export async function GET() {
-//   return Response.json({
-//     projectName: "Next.js",
-//   });
-// }
 
 // Post Data to MongoDB
 
@@ -43,7 +36,7 @@ export async function POST(request) {
           success: false,
           message: "Request body must be an object",
         },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -54,7 +47,7 @@ export async function POST(request) {
         success: true,
         data: rehabilitation,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error("POST rehabilitation error:", error);
@@ -64,7 +57,7 @@ export async function POST(request) {
         success: false,
         message: error.message,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

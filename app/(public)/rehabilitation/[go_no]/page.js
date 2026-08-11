@@ -1,8 +1,17 @@
+"use client";
 import Button from "@/components/common/Button";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useContext } from "react";
+// import { useParams } from "next/navigation";
 import { IoReturnDownBack } from "react-icons/io5";
+import { RehabilitationContext } from "../../../../provider/reehabilitationProvider";
 
-export default async function RehabilitationPage() {
+export default function RehabilitationPage() {
+  const { data } = useContext(RehabilitationContext);
+  const correntId = usePathname().slice((0, 16));
+  const filterId = data.filter((item) => item._id === correntId);
+
   return (
     <>
       <div className="flex justify-between">
@@ -34,7 +43,10 @@ export default async function RehabilitationPage() {
       {/* Summary */}
 
       <section className="grid gap-5 md:grid-cols-4">
-        <SummaryCard title="GO Beneficiaries" value="1500" />
+        <SummaryCard
+          title="GO Beneficiaries"
+          value={filterId[0].total_beneficiary}
+        />
 
         <SummaryCard title="Allocated" value="780" />
 
