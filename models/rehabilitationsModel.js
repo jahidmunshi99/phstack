@@ -12,11 +12,11 @@ const RehabilitationsSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 10,
-    maxlength: 150,
+    maxlength: 250,
   },
 
   go_date: {
-    type: Date,
+    type: String,
     required: true,
   },
 
@@ -49,9 +49,9 @@ const RehabilitationsSchema = new mongoose.Schema({
 
   ingredients_per_person: [
     {
-      ingredient: String,
+      name: String,
       quantity: Number,
-      unit: String,
+      price: Number,
     },
   ],
 });

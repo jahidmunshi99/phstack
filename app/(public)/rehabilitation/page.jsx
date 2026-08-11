@@ -7,7 +7,7 @@ import RehabilitationLoading from "../../(public)/rehabilitation/loading.jsx";
 
 const RehabilitationPage = () => {
   const data = useContext(RehabilitationContext);
-
+  console.log(data);
   return (
     <>
       <Topbar />

@@ -8,7 +8,7 @@ import RehabilitationInfo from "../../../../components/reehabilitation/forms/Reh
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
 const AddnewPage = () => {
   const methods = useForm();
-  const { handleSubmit, watch } = methods;
+  const { handleSubmit } = methods;
   const infoData = useContext(RehabilitationContext);
   const { seassions, ingredients, f_years } = infoData;
   const router = useRouter();
