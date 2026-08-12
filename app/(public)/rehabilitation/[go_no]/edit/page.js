@@ -14,7 +14,6 @@ const seassions = [
 const EditPage = async ({ params }) => {
   const { go_no } = await params;
   // const { register } = formRegister();
-  console.log(go_no);
 
   return (
     <>

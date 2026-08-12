@@ -8,52 +8,60 @@ const Table = ({ data }) => {
     <>
       {/* <!-- Table --> */}
       <div className="overflow-x-auto rounded-lg border border-gray-200 shadow-sm">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+        <table className="min-w-full divide-y divide-gray-200 text-sm font-medium ">
+          <thead className="bg-gray-50 ">
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>Sl</span>
+                  <span>ক্রঃ নং</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>Name</span>
+                  <span>কর্মসূচীর নাম</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>GO No</span>
+                  <span>উপকারভোগী সংখ্যা</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left  text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>Go Date</span>
+                  <span>জি.ও নং</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left  text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>F. Year</span>
+                  <span>তারিখ</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
+              >
+                <div className="flex items-center space-x-1">
+                  <span>অর্থবছর</span>
+                </div>
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-3 text-center text-gray-500 uppercase tracking-wider"
               >
                 <span>Actions</span>
               </th>
@@ -67,7 +75,10 @@ const Table = ({ data }) => {
                   {index + 1}
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
-                  <div className="font-medium">{item?.title}</div>
+                  <div className="font-medium">{item?.short_title}</div>
+                </td>
+                <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                  <div className="font-medium">{item?.total_beneficiary}</div>
                 </td>
                 <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-600 text-left">
                   <span>{item?.go_no}</span>

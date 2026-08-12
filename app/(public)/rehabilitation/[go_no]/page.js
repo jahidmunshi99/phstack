@@ -5,14 +5,15 @@ import { usePathname } from "next/navigation";
 import { useContext } from "react";
 // import { useParams } from "next/navigation";
 import { IoReturnDownBack } from "react-icons/io5";
+import { IngredientsBreakupTable } from "../../../../components/tables/IngredientsBreakupTable";
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider";
 
 export default function RehabilitationPage() {
   const { data } = useContext(RehabilitationContext);
   const correntId = usePathname().slice((0, 16));
-  const filterId = data.filter((item) => item._id === correntId);
+  const currentData = data.filter((item) => item._id === correntId);
 
-  console.log(data);
+  console.log(currentData);
 
   return (
     <>
@@ -47,7 +48,7 @@ export default function RehabilitationPage() {
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
         <div className="xl:col-span-3">
-          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <section className="rounded border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="mb-5 border-b border-slate-200 pb-3 text-xl font-semibold text-slate-800">
               Rehabilitation Information
             </h2>
@@ -73,86 +74,27 @@ export default function RehabilitationPage() {
           </section>
         </div>
         <div className="xl:col-span-2">
-          <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <section className="rounded border border-slate-200 bg-white p-5 shadow-sm">
             <h2 className="mb-5 border-b border-slate-200 pb-3 text-lg font-semibold text-slate-800">
-              Per Person Materials
+              জনপ্রতি উপকরণ বরাদ্দ
             </h2>
 
             {/* Header */}
-            <div className="mb-3 hidden items-center md:grid md:grid-cols-12 md:gap-3">
-              <label className="md:col-span-4 text-xs font-semibold uppercase tracking-wide text-slate-600">
-                Material
-              </label>
-
-              <label className="md:col-span-3 text-xs font-semibold uppercase tracking-wide text-slate-600">
-                Quantity
-              </label>
-
-              <label className="md:col-span-3 text-xs font-semibold uppercase tracking-wide text-slate-600">
-                Price
-              </label>
-
-              <div className="md:col-span-2" />
-            </div>
-
-            <div className="space-y-3">
-              <div className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm">
-                <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
-                  <div className="md:col-span-4">
-                    <Input placeholder="Material Name" />
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <Input placeholder="quantity" />
-                  </div>
-
-                  <div className="md:col-span-3">
-                    <Input placeholder="price" />
-                  </div>
-
-                  <div className="flex justify-end md:col-span-2 md:justify-center">
-                    <button>button</button>
-                    {/* <button
-                          type="button"
-                          className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-all hover:bg-red-50 hover:text-red-600"
-                          onClick={() => handleDeleteMaterial(index)}
-                        >
-                          <MdDeleteForever className="text-2xl" />
-                        </button> */}
-                  </div>
-                </div>
-              </div>
-
-              <Button className="w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-3 font-semibold text-slate-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600">
-                + Add Material
-              </Button>
-            </div>
+            <IngredientsBreakupTable
+              items={currentData[0].ingredients_per_person}
+            />
+          </section>
+          <section>
+            <section></section>
           </section>
         </div>
       </div>
-
-      {/* Summary */}
-      <section className="grid gap-5 md:grid-cols-4">
-        <SummaryCard title="GO Beneficiaries" value="0" />
-
-        <SummaryCard title="Allocated" value="780" />
-
-        <SummaryCard title="Remaining" value="720" />
-
-        <SummaryCard title="Completion" value="52%" />
-      </section>
 
       {/* Distribution Table */}
 
       <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
         <div className="border-b border-slate-200 p-6 text-start">
-          <div className="font-bold text-slate-800">কর্মসূচির নাম:</div>
-
-          <div className="mt-2 text-slate-600">
-            <span className="font-bold">জিও নং: </span>০১-০১-০০০০-০০০১-০০১,
-            <span className="font-bold">তারিখঃ</span> ০১-০১-২০২৩ ইং,
-            <span className="font-bold">মৌসুমঃ</span>খরিপ-২
-          </div>
+          <div className="font-bold text-slate-800">উপজেলাভিত্তিক বিভাজন</div>
         </div>
 
         {/* <!-- Title --> */}
@@ -375,6 +317,17 @@ export default function RehabilitationPage() {
             </tfoot>
           </table>
         </div>
+      </section>
+
+      {/* Summary */}
+      <section className="grid gap-5 md:grid-cols-4">
+        <SummaryCard title="GO Beneficiaries" value="0" />
+
+        <SummaryCard title="Allocated" value="780" />
+
+        <SummaryCard title="Remaining" value="720" />
+
+        <SummaryCard title="Completion" value="52%" />
       </section>
 
       <section className="rounded-xl bg-white p-6 shadow">
