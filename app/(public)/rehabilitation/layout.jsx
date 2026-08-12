@@ -15,7 +15,6 @@ const RehabilitationLayout = async ({ children }) => {
     f_years,
     ingredients,
   };
-  console.log(getData);
   return (
     <>
       <RehabilitationProvider data={getData}>

@@ -3,7 +3,7 @@ import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
 
-const Table = async ({ data }) => {
+const Table = ({ data }) => {
   return (
     <>
       {/* <!-- Table --> */}
