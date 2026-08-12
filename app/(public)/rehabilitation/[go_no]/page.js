@@ -43,10 +43,7 @@ export default function RehabilitationPage() {
       {/* Summary */}
 
       <section className="grid gap-5 md:grid-cols-4">
-        <SummaryCard
-          title="GO Beneficiaries"
-          value={filterId[0].total_beneficiary}
-        />
+        <SummaryCard title="GO Beneficiaries" value="0" />
 
         <SummaryCard title="Allocated" value="780" />
 
