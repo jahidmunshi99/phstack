@@ -2,9 +2,8 @@
 
 export const IngredientsBreakupTable = ({ items }) => {
   //   const {} = items;
-  console.log(items);
   const totalAllotments = items.reduce((total, item) => total + item.price, 0);
-  console.log(totalAllotments);
+
   return (
     <table className="w-full border-collapse text-[0.82rem]">
       {/* <!-- Header --> */}

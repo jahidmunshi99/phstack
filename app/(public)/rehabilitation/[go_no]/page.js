@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useContext } from "react";
 // import { useParams } from "next/navigation";
 import { IoReturnDownBack } from "react-icons/io5";
+import RehabilitationBasicInfo from "../../../../components/reehabilitation/RehabilitationBasicInfo";
 import { IngredientsBreakupTable } from "../../../../components/tables/IngredientsBreakupTable";
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider";
 
@@ -12,7 +13,6 @@ export default function RehabilitationPage() {
   const { data } = useContext(RehabilitationContext);
   const correntId = usePathname().slice((0, 16));
   const currentData = data.filter((item) => item._id === correntId);
-
   console.log(currentData);
 
   return (
@@ -20,7 +20,7 @@ export default function RehabilitationPage() {
       <div className="flex justify-between">
         <div className="grid-cols-1">
           <Link href="/rehabilitation" className="inline-block">
-            <Button className="hover:bg-slate-900 hover:text-white">
+            <Button className="hover:bg-slate-900 bg-white hover:text-white">
               <IoReturnDownBack className="text-lg" />
             </Button>
           </Link>
@@ -48,29 +48,20 @@ export default function RehabilitationPage() {
 
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
         <div className="xl:col-span-3">
-          <section className="rounded border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="mb-5 border-b border-slate-200 pb-3 text-xl font-semibold text-slate-800">
-              Rehabilitation Information
-            </h2>
+          <section className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6">
+            {/* Section Header */}
+            <div className="mb-6 border-b border-slate-200 pb-4">
+              <h2 className="text-lg font-semibold text-slate-800 sm:text-xl">
+                Rehabilitation Information
+              </h2>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
-              <Input label="GO No" placeholder="0000-000-000-000-00" />
-
-              <Input label="GO Date" type="date" />
-
-              <Input label="Title" placeholder="লেবু চারা প্রণোদনা" />
-
-              <Input label="Total Beneficiaries" placeholder="0" />
-
-              <Input label="Total Seed (MT)" disabled value="1500" />
-
-              <Input label="Total Fertilizer (MT)" disabled value="1500" />
-
-              <Input label="Total Allotment (TK)" disabled value="1500" />
-              <Input label="Seed Allotment (TK)" disabled value="1500" />
-              <Input label="Fertilizer Allotment (TK)" disabled value="1500" />
-              <Input label="Others Allotment (TK)" disabled value="1500" />
+              <p className="mt-1 text-sm text-slate-500">
+                General information about the rehabilitation program
+              </p>
             </div>
+
+            {/* Information Grid */}
+            <RehabilitationBasicInfo items={currentData[0]} />
           </section>
         </div>
         <div className="xl:col-span-2">
