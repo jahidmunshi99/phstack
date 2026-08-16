@@ -1,5 +1,6 @@
 const UpazilawiseBreakupTable = ({ data }) => {
-  console.log(data);
+  const { materials } = data[0];
+  console.log(materials);
   return (
     <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
       <div className="border-b border-slate-200 p-6 text-start">
@@ -83,62 +84,52 @@ const UpazilawiseBreakupTable = ({ data }) => {
           {/* <!-- Body --> */}
 
           <tbody>
-            <tr className="transition hover:bg-cyan-50">
-              <td className="border border-slate-300 px-4 py-3 text-center">
-                ১
-              </td>
+            {data?.map((item, index) => (
+              <tr key={index} className="transition hover:bg-cyan-50">
+                <td className="border border-slate-300 px-4 py-3 text-center">
+                  ১
+                </td>
 
-              <td className="border border-slate-300 px-4 py-3 font-medium">
-                সদর
-              </td>
+                <td className="border border-slate-300 px-4 py-3 font-medium">
+                  {item?.upazila?.name}
+                </td>
+                <td className="border border-slate-300 px-4 py-3 text-right">
+                  {item?.beneficiaryCount}
+                </td>
+                {/* individual items */}
+                {item?.materials?.map((e) => (
+                  <td className="border border-slate-300 px-4 py-3 text-right">
+                    {e?.quantity}
+                  </td>
+                ))}
 
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ১১০০
-              </td>
+                {/* Individual Price */}
+                {item?.materials?.map((e) => (
+                  <td className="border border-slate-300 px-4 py-3 text-right">
+                    {e?.amount}
+                  </td>
+                ))}
 
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ৫.৫০
-              </td>
+                <td className="border border-slate-300 px-4 py-3 text-right font-semibold">
+                  ৪.০৭০
+                </td>
 
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ১১.০০
-              </td>
+                <td className="border border-slate-300 px-4 py-3 text-right">
+                  ০.৪১২৫
+                </td>
 
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ১১.০০
-              </td>
+                <td className="border border-slate-300 px-4 py-3 text-right">
+                  ০.২৭৫
+                </td>
 
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ৩.৬৮৫
-              </td>
-
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ২.০৯০
-              </td>
-
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ১.৯৮০
-              </td>
-
-              <td className="border border-slate-300 px-4 py-3 text-right font-semibold">
-                ৪.০৭০
-              </td>
-
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ০.৪১২৫
-              </td>
-
-              <td className="border border-slate-300 px-4 py-3 text-right">
-                ০.২৭৫
-              </td>
-
-              <td className="border border-slate-300  px-4 py-3 text-right font-bold text-cyan-700">
-                ৮.৪৪২৫
-              </td>
-              <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-right font-bold text-cyan-700">
-                ৮.৪৪২৫
-              </td>
-            </tr>
+                <td className="border border-slate-300  px-4 py-3 text-right font-bold text-cyan-700">
+                  ৮.৪৪২৫
+                </td>
+                <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-right font-bold text-cyan-700">
+                  ৮.৪৪২৫
+                </td>
+              </tr>
+            ))}
           </tbody>
           <tfoot className="bg-slate-100 font-bold">
             <tr>
