@@ -11,7 +11,7 @@ const RehabilitationPage = () => {
   return (
     <>
       <Topbar />
-      <Table data={data.data} />
+      <Table data={data?.data} />
     </>
   );
 };

@@ -15,9 +15,11 @@ export default function RehabilitationPage() {
   const correntId = usePathname().slice((0, 16));
   const currentData = data.filter((item) => item._id === correntId);
   const currentDataupazilawise = rehabupazilawise.filter(
-    (item) => item.rehabilitation_id === correntId,
+    (item) => item.goNo === currentData[0].go_no,
   );
 
+  console.log("currentDataupazilawise", rehabupazilawise);
+  console.log(currentData);
   return (
     <>
       <div className="flex justify-between">
