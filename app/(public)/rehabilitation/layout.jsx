@@ -1,6 +1,7 @@
 import { getFinancialYears } from "../../../actions/financialyears/financialyears";
 import { getIngredients } from "../../../actions/ingredients/ingredients";
 import { getRehabilitations } from "../../../actions/rehabilitations/rehabilitations";
+import { getRehabupazilawise } from "../../../actions/rehabupazilawise/rehabupazilawise";
 import { getSeassions } from "../../../actions/seassions/seassions";
 import RehabilitationProvider from "../../../provider/reehabilitationProvider";
 
@@ -9,11 +10,13 @@ const RehabilitationLayout = async ({ children }) => {
   const seassions = await getSeassions();
   const f_years = await getFinancialYears();
   const ingredients = await getIngredients();
+  const rehabupazilawise = await getRehabupazilawise();
   const getData = {
     data,
     seassions,
     f_years,
     ingredients,
+    rehabupazilawise,
   };
   return (
     <>

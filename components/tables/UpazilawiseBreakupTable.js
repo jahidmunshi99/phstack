@@ -1,4 +1,5 @@
-const UpazilawiseBreakupTable = () => {
+const UpazilawiseBreakupTable = ({ data }) => {
+  console.log(data);
   return (
     <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
       <div className="border-b border-slate-200 p-6 text-start">

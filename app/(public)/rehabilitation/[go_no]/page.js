@@ -11,10 +11,12 @@ import UpazilawiseBreakupTable from "../../../../components/tables/UpazilawiseBr
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider";
 
 export default function RehabilitationPage() {
-  const { data } = useContext(RehabilitationContext);
+  const { data, rehabupazilawise } = useContext(RehabilitationContext);
   const correntId = usePathname().slice((0, 16));
   const currentData = data.filter((item) => item._id === correntId);
-  console.log(currentData);
+  const currentDataupazilawise = rehabupazilawise.filter(
+    (item) => item.rehabilitation_id === correntId,
+  );
 
   return (
     <>
@@ -82,7 +84,7 @@ export default function RehabilitationPage() {
 
       {/* Distribution Table */}
 
-      <UpazilawiseBreakupTable />
+      <UpazilawiseBreakupTable data={currentDataupazilawise} />
     </>
   );
 }
