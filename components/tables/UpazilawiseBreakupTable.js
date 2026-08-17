@@ -1,214 +1,270 @@
-const UpazilawiseBreakupTable = ({ data }) => {
-  const { materials } = data[0];
-  console.log(materials);
+import Button from "../common/Button";
+const UpazilawiseBreakupTable = ({ data = [] }) => {
   return (
     <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
-      <div className="border-b border-slate-200 p-6 text-start">
-        <div className="font-bold text-slate-800">উপজেলাভিত্তিক বিভাজন</div>
+      {/* Title */}
+      <div className="border-b border-slate-200 px-6 py-2">
+        <div className="flex justify-between items-center">
+          <h2 className="font-bold text-slate-800">উপজেলা ভিত্তিক বিভাজন</h2>
+          <div className="flex gap-3">
+            <Button className="">Print</Button>
+            <Button>Export CSV</Button>
+          </div>
+        </div>
       </div>
 
-      {/* <!-- Title --> */}
       <div className="p-2">
         <table className="w-full border-collapse text-sm">
-          {/* <!-- Header --> */}
-
+          {/* ================= HEADER ================= */}
           <thead className="bg-slate-100">
+            {/* Main Header */}
             <tr>
               <th
-                rowspan="2"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
                 ক্র.নং
               </th>
 
               <th
-                rowspan="2"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
                 উপজেলার নাম
               </th>
 
               <th
-                rowspan="2"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
-                উপকারভোগী সংখ্যা
+                উপকারভোগী <br /> সংখ্যা
               </th>
 
               <th
-                colspan="3"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                colSpan={3}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
                 উপকরণের নাম ও পরিমাণ (মে. টন)
               </th>
 
               <th
-                colspan="7"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                colSpan={3}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
                 উপকরণ বাবদ অর্থ (লক্ষ টাকায়)
               </th>
+
               <th
-                rowspan="4"
-                className="border border-slate-300 px-4 py-3 text-center font-bold"
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
+              >
+                পরিবহন <br /> ব্যয়
+              </th>
+
+              <th
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
+              >
+                আনুষঙ্গিক <br /> ব্যয়
+              </th>
+
+              <th
+                rowSpan={2}
+                className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
                 মোট বরাদ্দ
               </th>
             </tr>
 
+            {/* Sub Header */}
             <tr>
-              <th className="border border-slate-300 px-4 py-3">বীজ</th>
-
-              <th className="border border-slate-300 px-4 py-3">ডিএপি</th>
-
-              <th className="border border-slate-300 px-4 py-3">এমওপি</th>
-
-              <th className="border border-slate-300 px-4 py-3">বীজ</th>
-
-              <th className="border border-slate-300 px-4 py-3">ডিএপি</th>
-
-              <th className="border border-slate-300 px-4 py-3">এমওপি</th>
-
-              <th className="border border-slate-300 px-4 py-3"> সাব মোট</th>
-
-              <th className="border border-slate-300 px-4 py-3">পরিবহন ব্যয়</th>
-
-              <th className="border border-slate-300 px-4 py-3">
-                আনুষঙ্গিক ব্যয়
+              {/* Quantity */}
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                বীজ
               </th>
 
-              <th className="border border-slate-300 px-4 py-3">সাব মোট</th>
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                ডিএপি
+              </th>
+
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                এমওপি
+              </th>
+
+              {/* Amount */}
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                বীজ
+              </th>
+
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                ডিএপি
+              </th>
+
+              <th className="border border-slate-300 px-2 py-3 text-center">
+                এমওপি
+              </th>
             </tr>
           </thead>
 
-          {/* <!-- Body --> */}
-
+          {/* ================= BODY ================= */}
           <tbody>
-            {data?.map((item, index) => (
-              <tr key={index} className="transition hover:bg-cyan-50">
-                <td className="border border-slate-300 px-4 py-3 text-center">
-                  ১
-                </td>
+            {data.length > 0 ? (
+              data.map((item, index) => {
+                const materials = item?.materials || [];
 
-                <td className="border border-slate-300 px-4 py-3 font-medium">
-                  {item?.upazila?.name}
-                </td>
-                <td className="border border-slate-300 px-4 py-3 text-right">
-                  {item?.beneficiaryCount}
-                </td>
-                {/* individual items */}
-                {item?.materials?.map((e) => (
-                  <td className="border border-slate-300 px-4 py-3 text-right">
-                    {e?.quantity}
-                  </td>
-                ))}
+                const seed = materials[0];
+                const dap = materials[1];
+                const mop = materials[2];
+                const transportCost = materials[3];
+                const miscellaneousCost = materials[4];
 
-                {/* Individual Price */}
-                {item?.materials?.map((e) => (
-                  <td className="border border-slate-300 px-4 py-3 text-right">
-                    {e?.amount}
-                  </td>
-                ))}
+                const upazilaTotalAllocation = materials.reduce(
+                  (total, item) => total + (Number(item.amount) || 0),
+                  0,
+                );
+                console.log(upazilaTotalAllocation);
+                return (
+                  <tr
+                    key={item?._id || index}
+                    className="transition hover:bg-cyan-50"
+                  >
+                    {/* Serial */}
+                    <td className="border border-slate-300 px-4 py-3 text-center">
+                      {index + 1}
+                    </td>
 
-                <td className="border border-slate-300 px-4 py-3 text-right font-semibold">
-                  ৪.০৭০
-                </td>
+                    {/* Upazila */}
+                    <td className="border border-slate-300 px-4 py-3 capitalize font-bold">
+                      {item?.upazila?.name || "-"}
+                    </td>
 
-                <td className="border border-slate-300 px-4 py-3 text-right">
-                  ০.৪১২৫
-                </td>
+                    {/* Beneficiary */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {item?.beneficiaryCount ?? 0}
+                    </td>
 
-                <td className="border border-slate-300 px-4 py-3 text-right">
-                  ০.২৭৫
-                </td>
+                    {/* ================= QUANTITY ================= */}
 
-                <td className="border border-slate-300  px-4 py-3 text-right font-bold text-cyan-700">
-                  ৮.৪৪২৫
-                </td>
-                <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-right font-bold text-cyan-700">
-                  ৮.৪৪২৫
+                    {/* Seed */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {seed?.quantity ?? 0}
+                    </td>
+
+                    {/* DAP */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {dap?.quantity ?? 0}
+                    </td>
+
+                    {/* MOP */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {mop?.quantity ?? 0}
+                    </td>
+
+                    {/* ================= AMOUNT ================= */}
+
+                    {/* Seed */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {seed?.amount ?? 0}
+                    </td>
+
+                    {/* DAP */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {dap?.amount ?? 0}
+                    </td>
+
+                    {/* MOP */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {mop?.amount ?? 0}
+                    </td>
+
+                    {/* ================= OTHER COST ================= */}
+
+                    {/* Transport */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {transportCost?.amount ?? 0}
+                    </td>
+
+                    {/* Miscellaneous */}
+                    <td className="border border-slate-300 px-2 py-3 text-center">
+                      {miscellaneousCost?.amount ?? 0}
+                    </td>
+
+                    {/* Grand Total */}
+                    <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-center font-bold text-cyan-700">
+                      {upazilaTotalAllocation ?? 0}
+                    </td>
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td
+                  colSpan={12}
+                  className="border border-slate-300 px-2 py-8 text-center text-slate-500"
+                >
+                  কোনো তথ্য পাওয়া যায়নি
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
+
+          {/* ================= FOOTER ================= */}
           <tfoot className="bg-slate-100 font-bold">
             <tr>
-              {/* <!-- Total Label --> */}
-
               <td
-                colspan="2"
-                className="border border-slate-300 px-4 py-4 text-center text-lg"
+                colSpan={2}
+                className="border border-slate-300 px-2 py-4 text-center text-lg"
               >
                 সর্বমোট
               </td>
 
-              {/* <!-- Farmers --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* Beneficiary */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ১১০০
               </td>
 
-              {/* <!-- Seed --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* Seed Quantity */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ৫.৫০
               </td>
 
-              {/* <!-- DAP --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* DAP Quantity */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ১১.০০
               </td>
 
-              {/* <!-- MOP --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* MOP Quantity */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ১১.০০
               </td>
 
-              {/* <!-- Seed Cost --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* Seed Amount */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ৩.৬৮৫
               </td>
 
-              {/* <!-- DAP Cost --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* DAP Amount */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ২.০৯০
               </td>
 
-              {/* <!-- MOP Cost --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* MOP Amount */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ১.৯৮০
               </td>
 
-              <td className="border border-slate-300 px-4 py-4 text-right">
-                ১.৯৮০
-              </td>
-
-              {/* <!-- Material Total --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
-                ৭.৭৫৫
-              </td>
-
-              {/* <!-- Transport --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* Transport */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ০.৪১২৫
               </td>
 
-              {/* <!-- Misc --> */}
-
-              <td className="border border-slate-300 px-4 py-4 text-right">
+              {/* Miscellaneous */}
+              <td className="border border-slate-300 px-2 py-4 text-center">
                 ০.২৭৫
               </td>
 
-              {/* <!-- Grand Total --> */}
-
-              <td className="border border-slate-300 bg-cyan-50 px-4 py-4 text-right text-cyan-700">
+              {/* Grand Total */}
+              <td className="border border-slate-300 bg-cyan-50 px-2 py-4 text-center text-cyan-700">
                 ৮.৪৪২৫
               </td>
             </tr>
