@@ -45,14 +45,15 @@ const UpazilawiseBreakupTable = ({ data = [] }) => {
                 colSpan={3}
                 className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
-                উপকরণের নাম ও পরিমাণ (মে. টন)
+                উপকরণের নাম ও পরিমাণ <br /> (মে. টন)
               </th>
 
               <th
                 colSpan={3}
                 className="border border-slate-300 px-2 py-3 text-center font-bold"
               >
-                উপকরণ বাবদ অর্থ (লক্ষ টাকায়)
+                উপকরণ বাবদ অর্থ <br />
+                (লক্ষ টাকায়)
               </th>
 
               <th

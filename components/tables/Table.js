@@ -102,7 +102,7 @@ const Table = ({ data }) => {
                     </Link>
                   </Link>
                   <Link
-                    href={`/rehabilitation/${item?.go_no}/edit`}
+                    href={`/rehabilitation/${item?._id}/edit`}
                     className="text-green-600 hover:text-green-900 px-2 py-1 inline-block"
                   >
                     <FaPenToSquare className="text-[15px]" />
