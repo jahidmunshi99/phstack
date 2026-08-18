@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaEye } from "react-icons/fa";
 import { FaPenToSquare } from "react-icons/fa6";
 import { MdDelete } from "react-icons/md";
+import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
 
 const Table = ({ data }) => {
   return (
@@ -13,7 +14,7 @@ const Table = ({ data }) => {
             <tr>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                className="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
                   <span>ক্রঃ নং</span>
@@ -21,7 +22,7 @@ const Table = ({ data }) => {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
+                className="px-2 py-3 text-left text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
                   <span>কর্মসূচীর নাম</span>
@@ -29,31 +30,31 @@ const Table = ({ data }) => {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
+                className="px-2 py-3 text-left text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
-                  <span>উপকারভোগী সংখ্যা</span>
+                  <span>কৃষক সংখ্যা</span>
                 </div>
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-left  text-gray-500 uppercase tracking-wider"
+                className="px-2 py-3 text-left  text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
                   <span>জি.ও নং</span>
                 </div>
               </th>
-              <th
+              {/* <th
                 scope="col"
                 className="px-6 py-3 text-left  text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
                   <span>তারিখ</span>
                 </div>
-              </th>
+              </th> */}
               <th
                 scope="col"
-                className="px-6 py-3 text-left text-gray-500 uppercase tracking-wider"
+                className="px-2 py-3 text-left text-gray-500 uppercase tracking-wider"
               >
                 <div className="flex items-center space-x-1">
                   <span>অর্থবছর</span>
@@ -61,7 +62,7 @@ const Table = ({ data }) => {
               </th>
               <th
                 scope="col"
-                className="px-6 py-3 text-center text-gray-500 uppercase tracking-wider"
+                className="px-2 py-3 text-center text-gray-500 uppercase tracking-wider"
               >
                 <span>Actions</span>
               </th>
@@ -71,25 +72,27 @@ const Table = ({ data }) => {
           <tbody className="bg-white divide-y divide-gray-200">
             {data.map((item, index) => (
               <tr key={index}>
-                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 text-left">
-                  {index + 1}
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 text-center">
+                  {toBanglaNumber(index + 1)}
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
+                <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-left">
                   <div className="font-medium">{item?.short_title}</div>
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                  <div className="font-medium">{item?.total_beneficiary}</div>
+                <td className="px-2 py-2 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                  <div className="font-medium">
+                    {toBanglaNumber(item?.total_beneficiary)}
+                  </div>
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-600 text-left">
-                  <span>{item?.go_no}</span>
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-600 text-left">
+                  <span>{toBanglaNumber(item?.go_no)}</span>
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 text-left capitalize">
+                {/* <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 text-left capitalize">
                   {item?.go_date}
-                </td>
-                <td className="px-6 py-2 whitespace-nowrap text-sm text-gray-500 text-left">
+                </td> */}
+                <td className="px-2 py-2 whitespace-nowrap text-sm text-gray-500 text-left">
                   2025-26
                 </td>
-                <td className="px-6 py-2 whitespace-nowrap text-center text-sm font-medium">
+                <td className="px-2 py-2 whitespace-nowrap text-center text-sm font-medium">
                   <Link
                     href="#"
                     className="text-gray-600 hover:text-blue-900 px-2 py-1 inline-block"

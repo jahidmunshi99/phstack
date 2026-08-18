@@ -1,3 +1,4 @@
+import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
 import Button from "../common/Button";
 const UpazilawiseBreakupTable = ({ data = [] }) => {
   return (
@@ -130,7 +131,7 @@ const UpazilawiseBreakupTable = ({ data = [] }) => {
                   >
                     {/* Serial */}
                     <td className="border border-slate-300 px-4 py-3 text-center">
-                      {index + 1}
+                      {toBanglaNumber(index + 1)}
                     </td>
 
                     {/* Upazila */}
@@ -140,58 +141,58 @@ const UpazilawiseBreakupTable = ({ data = [] }) => {
 
                     {/* Beneficiary */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {item?.beneficiaryCount ?? 0}
+                      {toBanglaNumber(item?.beneficiaryCount ?? 0)}
                     </td>
 
                     {/* ================= QUANTITY ================= */}
 
                     {/* Seed */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {seed?.quantity ?? 0}
+                      {toBanglaNumber(seed?.quantity ?? 0)}
                     </td>
 
                     {/* DAP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {dap?.quantity ?? 0}
+                      {toBanglaNumber(dap?.quantity ?? 0)}
                     </td>
 
                     {/* MOP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {mop?.quantity ?? 0}
+                      {toBanglaNumber(mop?.quantity ?? 0)}
                     </td>
 
                     {/* ================= AMOUNT ================= */}
 
                     {/* Seed */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {seed?.amount ?? 0}
+                      {toBanglaNumber(seed?.amount ?? 0)}
                     </td>
 
                     {/* DAP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {dap?.amount ?? 0}
+                      {toBanglaNumber(dap?.amount ?? 0)}
                     </td>
 
                     {/* MOP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {mop?.amount ?? 0}
+                      {toBanglaNumber(mop?.amount ?? 0)}
                     </td>
 
                     {/* ================= OTHER COST ================= */}
 
                     {/* Transport */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {transportCost?.amount ?? 0}
+                      {toBanglaNumber(transportCost?.amount ?? 0)}
                     </td>
 
                     {/* Miscellaneous */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {miscellaneousCost?.amount ?? 0}
+                      {toBanglaNumber(miscellaneousCost?.amount ?? 0)}
                     </td>
 
                     {/* Grand Total */}
                     <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-center font-bold text-cyan-700">
-                      {upazilaTotalAllocation ?? 0}
+                      {toBanglaNumber(upazilaTotalAllocation ?? 0)}
                     </td>
                   </tr>
                 );
