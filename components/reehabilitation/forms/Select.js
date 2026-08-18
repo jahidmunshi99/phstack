@@ -30,7 +30,7 @@ const Select = ({ options, label, labelKey, ...props }) => {
           uppercase
         "
       >
-        {options.map((item, index) => (
+        {options?.map((item, index) => (
           <option key={index} value={item[labelKey]}>
             {item[labelKey]}
           </option>

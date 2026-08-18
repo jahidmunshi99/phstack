@@ -2,23 +2,34 @@
 import { useParams, useRouter } from "next/navigation";
 import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import TopDetailsLayout from "../../../../../components/reehabilitation/TopDetailsLayout.js";
-import PersonMaterials from "../../../../../components/reehabilitation/forms/PersonMaterials.js";
-import RehabilitationInfo from "../../../../../components/reehabilitation/forms/RehabilitationInfo.js";
-// import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
+import RehabilitationForm from "../../../../../components/reehabilitation/forms/RehabilitationForm2.jsx";
 import UpazilawiseBreakupTable from "../../../../../components/tables/UpazilawiseBreakupTable.js";
 import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
+
+const seassions = [
+  {
+    session: "robi",
+  },
+];
+
+const f_years = [
+  {
+    f_year: "2025-26",
+  },
+];
 
 const EditPage = () => {
   const methods = useForm();
   const { handleSubmit } = methods;
-  const { seassions, ingredients, f_years } = useContext(RehabilitationContext);
-
+  const { data, rehabupazilawise } = useContext(RehabilitationContext);
   const params = useParams();
-  // const rehabilitationId = params.id as string;
+  const currentID = params.id.toString();
+  const getData = data.filter((item) => item._id === currentID);
 
-  console.log(params);
-  // const { seassions, ingredients, f_years } = data;
+  const { session, ingredients_per_person, f_years } = getData[0];
+
+  console.log(getData);
+
   const router = useRouter();
 
   const handleSubmitForm = async (data) => {
@@ -62,22 +73,19 @@ const EditPage = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(handleSubmitForm)}>
-        <TopDetailsLayout />
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-5 mt-3">
-          <RehabilitationInfo initialData={{ seassions, f_years }} />
-          <PersonMaterials ingredients={ingredients} />
-        </div>
-        <div className="py-5">
-          <UpazilawiseBreakupTable />
-        </div>
-        <button
-          className="cursor-pointer border border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600"
-          type="submit"
-        >
-          Submit
-        </button>
-      </form>
+      <RehabilitationForm
+        initialData={data}
+        handleSubmitForm={handleSubmitForm}
+      />
+      <div className="py-5">
+        <UpazilawiseBreakupTable />
+      </div>
+      <button
+        className="cursor-pointer border border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600"
+        type="submit"
+      >
+        Submit
+      </button>
     </FormProvider>
   );
 };
