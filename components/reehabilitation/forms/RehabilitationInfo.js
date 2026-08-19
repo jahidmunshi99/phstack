@@ -10,6 +10,32 @@ const seassions = [{ session: "robi" }];
 const RehabilitationInfo = ({ formData }) => {
   console.log(formData);
   // const { seassions, f_years } = initialData;
+
+  // calculate all allotements
+  const totalAllotement =
+    formData.ingredients_per_person.reduce((sum, item) => sum + item.price, 0) *
+    formData.total_beneficiary;
+
+  // Seed Allotments Information
+  const seedAllotement = formData.ingredients_per_person.find(
+    (item) => item.name === "seeds",
+  );
+
+  const totalSeedAllotment =
+    (seedAllotement.quantity * formData.total_beneficiary) / 1000;
+  console.log(totalSeedAllotment);
+
+  const totalSeedAllotmentAmount =
+    seedAllotement.price * formData.total_beneficiary;
+  console.log(totalSeedAllotment);
+
+  // Fertilizer Allotments Information
+  const fertilizerAllotement = formData.ingredients_per_person.find(
+    (item) => item.name === "mop" || "dap" || "compost",
+  );
+
+  console.log(fertilizerAllotement);
+
   const { register } = useFormContext();
   return (
     <div className="xl:col-span-3">
@@ -61,12 +87,24 @@ const RehabilitationInfo = ({ formData }) => {
             {...register("total_beneficiary", { required: true })}
           />
 
-          <Input label="Total Seed (MT)" disabled value="1500" />
+          <Input
+            label="Total Seed (MT)"
+            disabled
+            value={totalSeedAllotment ? totalSeedAllotment : "0"}
+          />
 
           <Input label="Total Fertilizer (MT)" disabled value="1500" />
 
-          <Input label="Total Allotment (TK)" disabled value="1500" />
-          <Input label="Seed Allotment (TK)" disabled value="1500" />
+          <Input
+            label="Total Allotment (TK)"
+            disabled
+            value={totalAllotement ? totalAllotement : "0"}
+          />
+          <Input
+            label="Seed Allotment (TK)"
+            disabled
+            value={totalSeedAllotmentAmount ? totalSeedAllotmentAmount : "0"}
+          />
           <Input label="Fertilizer Allotment (TK)" disabled value="1500" />
           <Input label="Others Allotment (TK)" disabled value="1500" />
         </div>
