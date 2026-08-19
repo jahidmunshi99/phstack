@@ -55,7 +55,7 @@ const defaultData = {
 };
 
 const RehabilitationForm = ({ data }) => {
-  const [formData, setFormData] = useState(data || defaultData);
+  const [formData, setFormData] = useState(data?.[0] || defaultData);
   const methods = useForm();
 
   // const handleChange = (e) => {

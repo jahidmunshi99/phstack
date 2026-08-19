@@ -24,11 +24,11 @@ const EditPage = () => {
   const { data, rehabupazilawise } = useContext(RehabilitationContext);
   const params = useParams();
   const currentID = params.id.toString();
-  const getData = data.filter((item) => item._id === currentID);
+  const currentData = data.filter((item) => item._id === currentID);
 
-  const { session, ingredients_per_person, f_years } = getData[0];
+  const { session, ingredients_per_person, f_years } = currentData[0];
 
-  console.log(getData);
+  console.log(currentData);
 
   const router = useRouter();
 
@@ -74,7 +74,7 @@ const EditPage = () => {
   return (
     <FormProvider {...methods}>
       <RehabilitationForm
-        initialData={data}
+        data={currentData}
         handleSubmitForm={handleSubmitForm}
       />
       <div className="py-5">

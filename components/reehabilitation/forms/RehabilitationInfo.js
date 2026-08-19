@@ -13,25 +13,27 @@ const RehabilitationInfo = ({ formData }) => {
 
   // calculate all allotements
   const totalAllotement =
-    formData.ingredients_per_person.reduce((sum, item) => sum + item.price, 0) *
-    formData.total_beneficiary;
+    formData?.ingredients_per_person.reduce(
+      (sum, item) => sum + item.price,
+      0,
+    ) * formData?.total_beneficiary;
 
   // Seed Allotments Information
-  const seedAllotement = formData.ingredients_per_person.find(
+  const seedAllotement = formData?.ingredients_per_person.find(
     (item) => item.name === "seeds",
   );
 
   const totalSeedAllotment =
-    (seedAllotement.quantity * formData.total_beneficiary) / 1000;
+    (seedAllotement?.quantity * formData?.total_beneficiary) / 1000;
   console.log(totalSeedAllotment);
 
   const totalSeedAllotmentAmount =
-    seedAllotement.price * formData.total_beneficiary;
+    seedAllotement?.price * formData?.total_beneficiary;
   console.log(totalSeedAllotment);
 
   // Fertilizer Allotments Information
-  const fertilizerAllotement = formData.ingredients_per_person.find(
-    (item) => item.name === "mop" || "dap" || "compost",
+  const fertilizerAllotement = formData?.ingredients_per_person.find(
+    (item) => item?.name === "mop" || "dap" || "compost",
   );
 
   console.log(fertilizerAllotement);
@@ -54,6 +56,7 @@ const RehabilitationInfo = ({ formData }) => {
 
           <Input
             label="GO Date"
+            value={formData?.go_date}
             type="date"
             {...register("go_date", { required: true })}
           />

@@ -70,7 +70,7 @@ const Table = ({ data }) => {
           </thead>
 
           <tbody className="bg-white divide-y divide-gray-200">
-            {data.map((item, index) => (
+            {data?.map((item, index) => (
               <tr key={index}>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 text-center">
                   {toBanglaNumber(index + 1)}
