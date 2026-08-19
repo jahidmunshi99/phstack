@@ -56,7 +56,11 @@ const RehabilitationInfo = ({ formData }) => {
 
           <Input
             label="GO Date"
-            value={formData?.go_date}
+            value={
+              formData?.go_date
+                ? new Date(formData.go_date).toISOString().split("T")[0]
+                : ""
+            }
             type="date"
             {...register("go_date", { required: true })}
           />
