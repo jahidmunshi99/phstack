@@ -4,8 +4,12 @@ import { useFormContext } from "react-hook-form";
 import Input from "./Input";
 import Select from "./Select";
 
-const RehabilitationInfo = ({ initialData }) => {
-  const { seassions, f_years } = initialData;
+const f_years = [{ f_year: "2026-27" }];
+const seassions = [{ session: "robi" }];
+
+const RehabilitationInfo = ({ formData }) => {
+  console.log(formData);
+  // const { seassions, f_years } = initialData;
   const { register } = useFormContext();
   return (
     <div className="xl:col-span-3">
@@ -17,6 +21,7 @@ const RehabilitationInfo = ({ initialData }) => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           <Input
             label="GO No"
+            value={formData?.go_no}
             placeholder="0000-000-000-000-00"
             {...register("go_no", { required: true })}
           />
@@ -29,12 +34,14 @@ const RehabilitationInfo = ({ initialData }) => {
 
           <Input
             label="Title"
-            placeholder="লেবু চারা প্রণোদনা"
+            value={formData?.title}
+            placeholder="কর্মসূচীর নাম"
             {...register("title", { required: true })}
           />
 
           <Select
             options={f_years}
+            value={formData?.f_year}
             label="Financial Year"
             labelKey="f_year"
             {...register("f_year", { required: true })}
@@ -49,6 +56,7 @@ const RehabilitationInfo = ({ initialData }) => {
 
           <Input
             label="Total Beneficiaries"
+            value={formData?.total_beneficiary}
             placeholder="0"
             {...register("total_beneficiary", { required: true })}
           />
