@@ -72,14 +72,14 @@ const RehabilitationForm = ({ data }) => {
         <TopDetailsLayout />
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
           <RehabilitationInfo formData={formData} />
-          <PersonMaterials ingredients={[""]} />
+          <PersonMaterials formData={formData.ingredients_per_person} />
         </div>
-        <button
+        {/* <button
           className="mt-20 p-2 bg-gray-800 text-white cursor-pointer"
           type="submit"
         >
           Save
-        </button>
+        </button> */}
       </form>
     </FormProvider>
   );

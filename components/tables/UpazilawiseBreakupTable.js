@@ -1,6 +1,6 @@
 import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
 import Button from "../common/Button";
-const UpazilawiseBreakupTable = ({ data = [] }) => {
+const UpazilawiseBreakupTable = ({ data }) => {
   return (
     <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
       {/* Title */}
@@ -8,6 +8,7 @@ const UpazilawiseBreakupTable = ({ data = [] }) => {
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-slate-800">উপজেলা ভিত্তিক বিভাজন</h2>
           <div className="flex gap-3">
+            <Button className="">Add New</Button>
             <Button className="">Print</Button>
             <Button>Export CSV</Button>
           </div>

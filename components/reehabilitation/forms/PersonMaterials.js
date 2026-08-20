@@ -1,14 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
 import Button from "../../common/Button";
 import Input from "./Input";
 import Select from "./Select";
+import { RehabilitationContext } from "../../../provider/reehabilitationProvider";
 
-const PersonMaterials = ({ ingredients }) => {
-  const [selectedMaterial, setSelectedMaterial] = useState([]);
+const PersonMaterials = ({ formData }) => {
+    const { ingredients } = useContext(RehabilitationContext);
+
+  const [selectedMaterial, setSelectedMaterial] = useState(formData || []);
+
+
   const {
     register,
     watch
@@ -21,11 +26,9 @@ const PersonMaterials = ({ ingredients }) => {
   };
 
   const handleDeleteMaterial = (index)=>{
-const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
+  const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
     setSelectedMaterial(updatedMeterial)
   }
-
-  console.log(watch("ingredients_per_person"))
 
   return (
     <div className="xl:col-span-2">
@@ -52,7 +55,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
         </div>
 
         <div className="space-y-3">
-          {selectedMaterial.length === 0 ? (<div className="w-full rounded-xl border-2 border-dashed border-slate-100  py-3 font-semibold text-sm text-slate-600 transition-all text-center"> No Items added yet</div>) : ( selectedMaterial.map((item, index) =>
+          {selectedMaterial?.length === 0 ? (<div className="w-full rounded-xl border-2 border-dashed border-slate-100  py-3 font-semibold text-sm text-slate-600 transition-all text-center"> No Items added yet</div>) : ( selectedMaterial?.map((item, index) =>
             <div
                 key={index}
                 className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
@@ -60,7 +63,8 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                 <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
                   <div className="md:col-span-4">
                     <Select
-                      options={ingredients}
+                      options={ingredients?ingredients : "select one"}
+                      value={selectedMaterial?.[index]?.name ?? ""}
                       labelKey="item"
                       {...register(`ingredients_per_person[${index}].name`, {
                         required: true,
@@ -71,6 +75,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0"
+                      value={selectedMaterial[index]?.quantity}
                       {...register(`ingredients_per_person[${index}].quantity`, {
                         required: true,
                       })}
@@ -80,6 +85,7 @@ const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
                   <div className="md:col-span-3">
                     <Input
                       placeholder="0.0"
+                      value={selectedMaterial[index]?.price}
                       {...register(`ingredients_per_person[${index}].price`, {
                         required: true,
                       })}

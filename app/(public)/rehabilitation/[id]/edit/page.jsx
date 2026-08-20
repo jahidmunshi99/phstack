@@ -6,18 +6,6 @@ import RehabilitationForm from "../../../../../components/reehabilitation/forms/
 import UpazilawiseBreakupTable from "../../../../../components/tables/UpazilawiseBreakupTable.js";
 import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
 
-const seassions = [
-  {
-    session: "robi",
-  },
-];
-
-const f_years = [
-  {
-    f_year: "2025-26",
-  },
-];
-
 const EditPage = () => {
   const methods = useForm();
   const { handleSubmit } = methods;
@@ -25,10 +13,13 @@ const EditPage = () => {
   const params = useParams();
   const currentID = params.id.toString();
   const currentData = data.filter((item) => item._id === currentID);
-
-  const { session, ingredients_per_person, f_years } = currentData[0];
-
+  const currentUpazilaData = rehabupazilawise.filter(
+    (item) => item.go_no === currentData[0].go_no,
+  );
+  console.log(data);
+  console.log(rehabupazilawise);
   console.log(currentData);
+  console.log(currentUpazilaData);
 
   const router = useRouter();
 
@@ -78,7 +69,7 @@ const EditPage = () => {
         handleSubmitForm={handleSubmitForm}
       />
       <div className="py-5">
-        <UpazilawiseBreakupTable />
+        <UpazilawiseBreakupTable data={currentUpazilaData} />
       </div>
       <button
         className="cursor-pointer border border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600"

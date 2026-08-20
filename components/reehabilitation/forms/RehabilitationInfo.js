@@ -1,15 +1,13 @@
 "use client";
 
+import { useContext } from "react";
 import { useFormContext } from "react-hook-form";
+import { RehabilitationContext } from "../../../provider/reehabilitationProvider";
 import Input from "./Input";
 import Select from "./Select";
 
-const f_years = [{ f_year: "2026-27" }];
-const seassions = [{ session: "robi" }];
-
 const RehabilitationInfo = ({ formData }) => {
-  console.log(formData);
-  // const { seassions, f_years } = initialData;
+  const { seassions, f_years } = useContext(RehabilitationContext);
 
   // calculate all allotements
   const totalAllotement =
@@ -35,8 +33,6 @@ const RehabilitationInfo = ({ formData }) => {
   const fertilizerAllotement = formData?.ingredients_per_person.find(
     (item) => item?.name === "mop" || "dap" || "compost",
   );
-
-  console.log(fertilizerAllotement);
 
   const { register } = useFormContext();
   return (
@@ -82,6 +78,7 @@ const RehabilitationInfo = ({ formData }) => {
 
           <Select
             label="Season"
+            value={formData?.session}
             options={seassions}
             labelKey="s_name"
             {...register("session", { required: true })}
