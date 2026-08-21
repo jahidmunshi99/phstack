@@ -72,7 +72,7 @@ const EditPage = () => {
         <UpazilawiseBreakupTable data={currentUpazilaData} />
       </div>
       <button
-        className="cursor-pointer border border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600"
+        className="cursor-pointer border  border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600 hover:text-white"
         type="submit"
       >
         Submit

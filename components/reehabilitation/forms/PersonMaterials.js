@@ -1,114 +1,140 @@
 "use client";
 
-import { useContext, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { useContext } from "react";
+import { useFormContext, useWatch } from "react-hook-form";
 import { MdDeleteForever } from "react-icons/md";
+
+import { RehabilitationContext } from "../../../provider/reehabilitationProvider";
 import Button from "../../common/Button";
 import Input from "./Input";
 import Select from "./Select";
-import { RehabilitationContext } from "../../../provider/reehabilitationProvider";
 
-const PersonMaterials = ({ formData }) => {
-    const { ingredients } = useContext(RehabilitationContext);
+const PersonMaterials = () => {
+  const { ingredients = [] } = useContext(RehabilitationContext);
 
-  const [selectedMaterial, setSelectedMaterial] = useState(formData || []);
+  const { register, control, setValue } = useFormContext();
 
+  const selectedMaterials =
+    useWatch({
+      control,
+      name: "ingredients_per_person",
+    }) || [];
 
-  const {
-    register,
-    watch
-    // selectedMaterial,
-    // handleDeleteMaterial,
-  } = useFormContext();
+  // Add new material
+  const handleAddMaterial = () => {
+    const newMaterial = {
+      name: ingredients?.[0]?.item || "",
+      quantity: "",
+      price: "",
+    };
 
-  const handleAddMaterial = (item) => {
-    setSelectedMaterial((prev) => [...prev, item]);
+    setValue("ingredients_per_person", [...selectedMaterials, newMaterial]);
   };
 
-  const handleDeleteMaterial = (index)=>{
-  const updatedMeterial = selectedMaterial.filter((_, i) => i !== index);
-    setSelectedMaterial(updatedMeterial)
-  }
+  // Delete material
+  const handleDeleteMaterial = (index) => {
+    const updatedMaterials = selectedMaterials.filter(
+      (_, materialIndex) => materialIndex !== index,
+    );
+
+    setValue("ingredients_per_person", updatedMaterials);
+  };
 
   return (
     <div className="xl:col-span-2">
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        {/* Title */}
         <h2 className="mb-5 border-b border-slate-200 pb-3 text-lg font-semibold text-slate-800">
           Per Person Materials
         </h2>
 
-        {/* Header */}
-        <div className="mb-3 hidden items-center md:grid md:grid-cols-12 md:gap-3">
-          <label className="md:col-span-4 text-xs font-semibold uppercase tracking-wide text-slate-600">
+        {/* Table Header */}
+        <div className="mb-3 hidden items-center gap-3 md:grid md:grid-cols-12">
+          <label className="text-xs font-semibold uppercase tracking-wide text-slate-600 md:col-span-4">
             Material
           </label>
 
-          <label className="md:col-span-3 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          <label className="text-xs font-semibold uppercase tracking-wide text-slate-600 md:col-span-3">
             Quantity
           </label>
 
-          <label className="md:col-span-3 text-xs font-semibold uppercase tracking-wide text-slate-600">
+          <label className="text-xs font-semibold uppercase tracking-wide text-slate-600 md:col-span-3">
             Price
           </label>
 
           <div className="md:col-span-2" />
         </div>
 
+        {/* Materials */}
         <div className="space-y-3">
-          {selectedMaterial?.length === 0 ? (<div className="w-full rounded-xl border-2 border-dashed border-slate-100  py-3 font-semibold text-sm text-slate-600 transition-all text-center"> No Items added yet</div>) : ( selectedMaterial?.map((item, index) =>
-            <div
+          {selectedMaterials.length === 0 ? (
+            <div className="w-full rounded-xl border-2 border-dashed border-slate-100 py-3 text-center text-sm font-semibold text-slate-600">
+              No items added yet
+            </div>
+          ) : (
+            selectedMaterials.map((material, index) => (
+              <div
                 key={index}
-                className="rounded-xl border border-slate-200 p-1 transition-all hover:border-blue-400 hover:shadow-sm"
+                className="rounded-xl border border-slate-200 p-2 transition-all hover:border-blue-400 hover:shadow-sm"
               >
                 <div className="grid grid-cols-1 items-center gap-3 md:grid-cols-12">
+                  {/* Material */}
                   <div className="md:col-span-4">
                     <Select
-                      options={ingredients?ingredients : "select one"}
-                      value={selectedMaterial?.[index]?.name ?? ""}
+                      options={ingredients}
                       labelKey="item"
-                      {...register(`ingredients_per_person[${index}].name`, {
-                        required: true,
+                      {...register(`ingredients_per_person.${index}.name`, {
+                        required: "Material is required",
                       })}
                     />
                   </div>
 
+                  {/* Quantity */}
                   <div className="md:col-span-3">
                     <Input
+                      type="number"
                       placeholder="0"
-                      value={selectedMaterial[index]?.quantity}
-                      {...register(`ingredients_per_person[${index}].quantity`, {
-                        required: true,
+                      {...register(`ingredients_per_person.${index}.quantity`, {
+                        required: "Quantity is required",
+                        valueAsNumber: true,
                       })}
                     />
                   </div>
 
+                  {/* Price */}
                   <div className="md:col-span-3">
                     <Input
-                      placeholder="0.0"
-                      value={selectedMaterial[index]?.price}
-                      {...register(`ingredients_per_person[${index}].price`, {
-                        required: true,
+                      type="number"
+                      step="0.01"
+                      placeholder="0.00"
+                      {...register(`ingredients_per_person.${index}.price`, {
+                        required: "Price is required",
+                        valueAsNumber: true,
                       })}
                     />
                   </div>
 
+                  {/* Delete */}
                   <div className="flex justify-end md:col-span-2 md:justify-center">
                     <button
                       type="button"
-                      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-all hover:bg-red-50 hover:text-red-600"
                       onClick={() => handleDeleteMaterial(index)}
+                      className="flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg text-red-500 transition-colors hover:bg-red-50 hover:text-red-600"
+                      aria-label={`Delete material ${index + 1}`}
                     >
                       <MdDeleteForever className="text-2xl" />
                     </button>
                   </div>
                 </div>
               </div>
-            ),
+            ))
           )}
 
+          {/* Add Material */}
           <Button
-            className="w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-3 font-semibold text-slate-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"
+            type="button"
             onClick={handleAddMaterial}
+            className="w-full rounded-xl border-2 border-dashed border-slate-300 bg-slate-50 py-3 font-semibold text-slate-600 transition-all hover:border-blue-500 hover:bg-blue-50 hover:text-blue-600"
           >
             + Add Material
           </Button>

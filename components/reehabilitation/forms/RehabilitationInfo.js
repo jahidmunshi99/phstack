@@ -6,33 +6,31 @@ import { RehabilitationContext } from "../../../provider/reehabilitationProvider
 import Input from "./Input";
 import Select from "./Select";
 
-const RehabilitationInfo = ({ formData }) => {
+const RehabilitationInfo = () => {
   const { seassions, f_years } = useContext(RehabilitationContext);
+  const { watch } = useFormContext();
+  const materials = watch("ingredients_per_person") || [];
+  const total_beneficiary = watch("total_beneficiary") || [];
+  // const goDate = watch("go_date") || [];
 
   // calculate all allotements
   const totalAllotement =
-    formData?.ingredients_per_person.reduce(
-      (sum, item) => sum + item.price,
-      0,
-    ) * formData?.total_beneficiary;
+    materials.reduce((sum, item) => sum + item.price, 0) * total_beneficiary;
 
   // Seed Allotments Information
-  const seedAllotement = formData?.ingredients_per_person.find(
-    (item) => item.name === "seeds",
-  );
+  const seedAllotement = materials.find((item) => item.name === "seeds");
 
   const totalSeedAllotment =
-    (seedAllotement?.quantity * formData?.total_beneficiary) / 1000;
-  console.log(totalSeedAllotment);
+    (seedAllotement?.quantity * total_beneficiary) / 1000;
 
-  const totalSeedAllotmentAmount =
-    seedAllotement?.price * formData?.total_beneficiary;
-  console.log(totalSeedAllotment);
+  const totalSeedAllotmentAmount = seedAllotement?.price * total_beneficiary;
 
   // Fertilizer Allotments Information
-  const fertilizerAllotement = formData?.ingredients_per_person.find(
-    (item) => item?.name === "mop" || "dap" || "compost",
+  const fertilizerAllotement = materials.find((item) =>
+    ["mop", "dap", "compost"].includes(item?.name),
   );
+
+  console.log(fertilizerAllotement);
 
   const { register } = useFormContext();
   return (
@@ -45,32 +43,28 @@ const RehabilitationInfo = ({ formData }) => {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
           <Input
             label="GO No"
-            value={formData?.go_no}
+            value={watch("go_no")}
             placeholder="0000-000-000-000-00"
             {...register("go_no", { required: true })}
           />
 
-          <Input
+          {/* <Input
             label="GO Date"
-            value={
-              formData?.go_date
-                ? new Date(formData.go_date).toISOString().split("T")[0]
-                : ""
-            }
             type="date"
-            {...register("go_date", { required: true })}
-          />
+            value={goDate ? new Date(goDate).toISOString().split("T")[0] : ""}
+            onChange={(e) => setValue("go_date", e.target.value)}
+          /> */}
 
           <Input
             label="Title"
-            value={formData?.title}
+            value={watch("title")}
             placeholder="কর্মসূচীর নাম"
             {...register("title", { required: true })}
           />
 
           <Select
             options={f_years}
-            value={formData?.f_year}
+            value={watch("f_year")}
             label="Financial Year"
             labelKey="f_year"
             {...register("f_year", { required: true })}
@@ -78,7 +72,7 @@ const RehabilitationInfo = ({ formData }) => {
 
           <Select
             label="Season"
-            value={formData?.session}
+            value={watch("session")}
             options={seassions}
             labelKey="s_name"
             {...register("session", { required: true })}
@@ -86,7 +80,7 @@ const RehabilitationInfo = ({ formData }) => {
 
           <Input
             label="Total Beneficiaries"
-            value={formData?.total_beneficiary}
+            value={watch("total_beneficiary")}
             placeholder="0"
             {...register("total_beneficiary", { required: true })}
           />
@@ -97,7 +91,7 @@ const RehabilitationInfo = ({ formData }) => {
             value={totalSeedAllotment ? totalSeedAllotment : "0"}
           />
 
-          <Input label="Total Fertilizer (MT)" disabled value="1500" />
+          <Input label="Total Fertilizer (MT)" disabled value="0" />
 
           <Input
             label="Total Allotment (TK)"
@@ -109,8 +103,8 @@ const RehabilitationInfo = ({ formData }) => {
             disabled
             value={totalSeedAllotmentAmount ? totalSeedAllotmentAmount : "0"}
           />
-          <Input label="Fertilizer Allotment (TK)" disabled value="1500" />
-          <Input label="Others Allotment (TK)" disabled value="1500" />
+          <Input label="Fertilizer Allotment (TK)" disabled value="0" />
+          <Input label="Others Allotment (TK)" disabled value="0" />
         </div>
       </section>
     </div>

@@ -2,9 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import TopDetailsLayout from "../../../../components/reehabilitation/TopDetailsLayout.js";
-import PersonMaterials from "../../../../components/reehabilitation/forms/PersonMaterials.js";
-import RehabilitationInfo from "../../../../components/reehabilitation/forms/RehabilitationInfo.js";
+import RehabilitationForm from "../../../../components/reehabilitation/forms/RehabilitationForm2.jsx";
 import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
 
 const AddnewPage = () => {
@@ -56,12 +54,11 @@ const AddnewPage = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
-        <TopDetailsLayout />
-        <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
+        <RehabilitationForm handleSubmitForm={handleSubmitForm} />
+        {/* <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
           <RehabilitationInfo initialData={{ seassions, f_years }} />
           <PersonMaterials ingredients={ingredients} />
-        </div>
-        <button type="submit">Submit</button>
+        </div> */}
       </form>
     </FormProvider>
   );
