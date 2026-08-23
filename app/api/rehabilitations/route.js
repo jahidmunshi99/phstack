@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// import mongoDB from "../../../lib/mongodb";
 import connectMongo from "../../../dbConnect/connectMongo.js";
 import RehabilitationsModel from "../../../models/rehabilitationsModel.js";
 

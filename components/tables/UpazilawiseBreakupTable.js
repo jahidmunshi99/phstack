@@ -1,22 +1,56 @@
+import { useParams } from "next/navigation.js";
+import { useContext, useState } from "react";
 import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
+import { RehabilitationContext } from "../../provider/reehabilitationProvider.jsx";
 import Button from "../common/Button";
-const UpazilawiseBreakupTable = ({ data }) => {
+import AddUpazilaModal from "../reehabilitation/forms/AddUpazilaModal.jsx";
+
+const UpazilawiseBreakupTable = () => {
+  const { data, rehabupazilawise } = useContext(RehabilitationContext);
+  const params = useParams();
+  const currentID = params.id.toString();
+  const filterData = data.filter((item) => item._id === currentID);
+  const tableData = rehabupazilawise.filter(
+    (item) => item.go_no === filterData[0].go_no,
+  );
+
+  const [showUpazilaModal, setShowUpazilaModal] = useState(false);
+
+  const handleAddNewUpazila = () => {
+    setShowUpazilaModal(!showUpazilaModal);
+  };
+
   return (
-    <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg">
+    <section className="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-lg relative mt-15">
       {/* Title */}
       <div className="border-b border-slate-200 px-6 py-2">
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-slate-800">উপজেলা ভিত্তিক বিভাজন</h2>
           <div className="flex gap-3">
-            <Button className="">Add New</Button>
+            <Button
+              type="button"
+              className="rounded-lg bg-cyan-600 px-4 py-2 text-white"
+              onClick={() => {
+                setShowUpazilaModal(!showUpazilaModal);
+              }}
+            >
+              Add New
+            </Button>
             <Button className="">Print</Button>
             <Button>Export CSV</Button>
           </div>
         </div>
       </div>
+      {showUpazilaModal && (
+        <AddUpazilaModal
+          onClose={() => {
+            setShowUpazilaModal(!showUpazilaModal);
+          }}
+        />
+      )}
 
       <div className="p-2">
-        <table className="w-full border-collapse text-sm">
+        <table className="w-full border-collapse text-sm z-100">
           {/* ================= HEADER ================= */}
           <thead className="bg-slate-100">
             {/* Main Header */}
@@ -111,8 +145,8 @@ const UpazilawiseBreakupTable = ({ data }) => {
 
           {/* ================= BODY ================= */}
           <tbody>
-            {data.length > 0 ? (
-              data.map((item, index) => {
+            {tableData.length > 0 ? (
+              tableData.map((item, index) => {
                 const materials = item?.materials || [];
 
                 const seed = materials[0];

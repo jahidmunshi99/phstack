@@ -5,6 +5,24 @@ import { MdDelete } from "react-icons/md";
 import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
 
 const Table = ({ data }) => {
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`/api/rehabilitations/${id}`, {
+        method: "DELETE",
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to delete");
+      }
+
+      console.log("Deleted successfully:", result);
+    } catch (error) {
+      console.error("Delete error:", error);
+    }
+  };
+
   return (
     <>
       {/* <!-- Table --> */}
@@ -111,7 +129,10 @@ const Table = ({ data }) => {
                     href="#"
                     className="text-red-600 hover:text-red-900 px-2 py-1 inline-block"
                   >
-                    <MdDelete className="text-[18px]" />
+                    <MdDelete
+                      className="text-[18px]"
+                      onClick={() => handleDelete(item?._id)}
+                    />
                   </Link>
                 </td>
               </tr>

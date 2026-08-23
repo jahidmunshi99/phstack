@@ -60,6 +60,13 @@ const RehabilitationInfo = () => {
             {...register("title", { required: true })}
           />
 
+          <Input
+            label="Short Title"
+            value={watch("short_title")}
+            placeholder="কর্মসূচীর সংক্ষিপ্ত নাম"
+            {...register("short_title", { required: true })}
+          />
+
           <Select
             options={f_years}
             value={watch("f_year")}

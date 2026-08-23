@@ -14,6 +14,12 @@ const RehabilitationsSchema = new mongoose.Schema({
     minlength: 10,
     maxlength: 250,
   },
+  short_title: {
+    type: String,
+    required: true,
+    minlength: 10,
+    maxlength: 100,
+  },
 
   go_date: {
     type: String,
@@ -21,7 +27,7 @@ const RehabilitationsSchema = new mongoose.Schema({
   },
 
   total_beneficiary: {
-    type: Number,
+    type: String,
     required: true,
     min: 1,
     max: 100000,
@@ -50,8 +56,8 @@ const RehabilitationsSchema = new mongoose.Schema({
   ingredients_per_person: [
     {
       name: String,
-      quantity: Number,
-      price: Number,
+      quantity: String,
+      price: String,
     },
   ],
 });

@@ -43,10 +43,6 @@ const AddnewPage = () => {
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
         <RehabilitationForm />
-        {/* <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
-          <RehabilitationInfo initialData={{ seassions, f_years }} />
-          <PersonMaterials ingredients={ingredients} />
-        </div> */}
         <button
           type="submit"
           className="bg-black px-4 rounded cursor-pointer py-1 text-white mt-4"

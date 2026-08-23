@@ -93,6 +93,7 @@ const PersonMaterials = () => {
                   <div className="md:col-span-3">
                     <Input
                       type="number"
+                      step="any"
                       placeholder="0"
                       {...register(`ingredients_per_person.${index}.quantity`, {
                         required: "Quantity is required",
@@ -105,7 +106,7 @@ const PersonMaterials = () => {
                   <div className="md:col-span-3">
                     <Input
                       type="number"
-                      step="0.01"
+                      step="any"
                       placeholder="0.00"
                       {...register(`ingredients_per_person.${index}.price`, {
                         required: "Price is required",
