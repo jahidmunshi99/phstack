@@ -11,7 +11,7 @@ const RehabilitationInfo = () => {
   const { watch } = useFormContext();
   const materials = watch("ingredients_per_person") || [];
   const total_beneficiary = watch("total_beneficiary") || [];
-  // const goDate = watch("go_date") || [];
+  const goDate = watch("go_date");
 
   // calculate all allotements
   const totalAllotement =
@@ -30,8 +30,6 @@ const RehabilitationInfo = () => {
     ["mop", "dap", "compost"].includes(item?.name),
   );
 
-  console.log(fertilizerAllotement);
-
   const { register } = useFormContext();
   return (
     <div className="xl:col-span-3">
@@ -48,12 +46,12 @@ const RehabilitationInfo = () => {
             {...register("go_no", { required: true })}
           />
 
-          {/* <Input
+          <Input
             label="GO Date"
             type="date"
             value={goDate ? new Date(goDate).toISOString().split("T")[0] : ""}
-            onChange={(e) => setValue("go_date", e.target.value)}
-          /> */}
+            {...register("go_date", { required: true })}
+          />
 
           <Input
             label="Title"

@@ -1,14 +1,11 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import RehabilitationForm from "../../../../components/reehabilitation/forms/RehabilitationForm2.jsx";
-import { RehabilitationContext } from "../../../../provider/reehabilitationProvider.jsx";
 
 const AddnewPage = () => {
   const methods = useForm();
   const { handleSubmit } = methods;
-  const { seassions, ingredients, f_years } = useContext(RehabilitationContext);
 
   const router = useRouter();
 
@@ -36,15 +33,6 @@ const AddnewPage = () => {
       } else {
         throw new Error(result.message || "Failed to save");
       }
-
-      // const result = await response.json();
-
-      // console.log("API Response:", result);
-
-      // if (!response.ok) {
-      //   throw new Error(result.message || "Failed to save");
-      // }
-
       console.log("Saved successfully:", result);
     } catch (error) {
       console.error("Error:", error);
@@ -54,11 +42,17 @@ const AddnewPage = () => {
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(handleSubmitForm)}>
-        <RehabilitationForm handleSubmitForm={handleSubmitForm} />
+        <RehabilitationForm />
         {/* <div className="grid grid-cols-1 gap-6 xl:grid-cols-5">
           <RehabilitationInfo initialData={{ seassions, f_years }} />
           <PersonMaterials ingredients={ingredients} />
         </div> */}
+        <button
+          type="submit"
+          className="bg-black px-4 rounded cursor-pointer py-1 text-white mt-4"
+        >
+          Save
+        </button>
       </form>
     </FormProvider>
   );

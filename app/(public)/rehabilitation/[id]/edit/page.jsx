@@ -7,8 +7,6 @@ import UpazilawiseBreakupTable from "../../../../../components/tables/Upazilawis
 import { RehabilitationContext } from "../../../../../provider/reehabilitationProvider.jsx";
 
 const EditPage = () => {
-  const methods = useForm();
-  const { handleSubmit } = methods;
   const { data, rehabupazilawise } = useContext(RehabilitationContext);
   const params = useParams();
   const currentID = params.id.toString();
@@ -16,67 +14,59 @@ const EditPage = () => {
   const currentUpazilaData = rehabupazilawise.filter(
     (item) => item.go_no === currentData[0].go_no,
   );
-  console.log(data);
-  console.log(rehabupazilawise);
-  console.log(currentData);
-  console.log(currentUpazilaData);
+  const methods = useForm({ defaultValues: currentData[0] });
 
   const router = useRouter();
 
-  const handleSubmitForm = async (data) => {
-    const allData = {
-      ...data,
-      createdAt: new Date().toISOString(),
-      createdBy: "admin",
-    };
-
-    console.log(allData);
-
-    try {
-      const response = await fetch("/api/rehabilitations", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(allData),
-      });
-
-      if (response.ok) {
-        router.push("/rehabilitation");
-        console.log("API Response:", result);
-      } else {
-        throw new Error(result.message || "Failed to save");
-      }
-
-      // const result = await response.json();
-
-      // console.log("API Response:", result);
-
-      // if (!response.ok) {
-      //   throw new Error(result.message || "Failed to save");
-      // }
-
-      console.log("Saved successfully:", result);
-    } catch (error) {
-      console.error("Error:", error);
-    }
+  const handleTestFromSubmit = (data) => {
+    console.log(data);
+    router.push("/rehabilitation");
   };
+
+  // const handleSubmitForm = async (data) => {
+  //   const allData = {
+  //     ...data,
+  //     createdAt: new Date().toISOString(),
+  //     createdBy: "admin",
+  //   };
+
+  //   console.log(allData);
+
+  //   try {
+  //     const response = await fetch("/api/rehabilitations", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(allData),
+  //     });
+
+  //     if (response.ok) {
+  //       router.push("/rehabilitation");
+  //       console.log("API Response:", result);
+  //     } else {
+  //       throw new Error(result.message || "Failed to save");
+  //     }
+  //     console.log("Saved successfully:", result);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   }
+  // };
 
   return (
     <FormProvider {...methods}>
-      <RehabilitationForm
-        data={currentData}
-        handleSubmitForm={handleSubmitForm}
-      />
-      <div className="py-5">
-        <UpazilawiseBreakupTable data={currentUpazilaData} />
-      </div>
-      <button
-        className="cursor-pointer border  border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600 hover:text-white"
-        type="submit"
-      >
-        Submit
-      </button>
+      <form onSubmit={methods.handleSubmit(handleTestFromSubmit)}>
+        <RehabilitationForm data={currentData} />
+        <div className="py-5">
+          <UpazilawiseBreakupTable data={currentUpazilaData} />
+        </div>
+        <button
+          className="cursor-pointer border  border-gray-300 px-3 py-1 bg-gray-300 rounded hover:bg-gray-600 hover:text-white"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
     </FormProvider>
   );
 };
