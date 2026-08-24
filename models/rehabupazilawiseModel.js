@@ -8,11 +8,14 @@ const RehabupazilaWiseSchema = new mongoose.Schema({
     maxlength: 50,
   },
 
+  upazila: {
+    type: String,
+    required: true,
+  },
+
   title: {
     type: String,
     required: true,
-    minlength: 10,
-    maxlength: 250,
   },
 
   go_date: {
@@ -21,7 +24,7 @@ const RehabupazilaWiseSchema = new mongoose.Schema({
   },
 
   total_beneficiary: {
-    type: Number,
+    type: String,
     required: true,
     min: 1,
     max: 100000,
@@ -47,7 +50,7 @@ const RehabupazilaWiseSchema = new mongoose.Schema({
     required: true,
   },
 
-  ingredients_per_person: [
+  ingredients: [
     {
       name: String,
       quantity: Number,

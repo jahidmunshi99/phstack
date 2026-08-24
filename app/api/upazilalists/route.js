@@ -1,15 +1,14 @@
 import { NextResponse } from "next/server";
-// import mongoDB from "../../../lib/mongodb";
 import connectMongo from "../../../dbConnect/connectMongo.js";
-import RehabupazilawiseModel from "../../../models/rehabupazilawiseModel.js";
+import UpazilaListModel from "../../../models/upazilaListModel.js";
 
 export async function GET() {
   try {
     await connectMongo();
-    const Rehabupazilawise = await RehabupazilawiseModel.find().sort({
+    const upazilaList = await UpazilaListModel.find().sort({
       createdOn: -1,
     });
-    const res = JSON.parse(JSON.stringify(Rehabupazilawise));
+    const res = JSON.parse(JSON.stringify(upazilaList));
     return NextResponse.json({
       success: true,
       data: res,
@@ -18,8 +17,6 @@ export async function GET() {
     console.log("this error from get faq actions", error);
   }
 }
-
-// post data to DB
 
 // Post Data to MongoDB
 
@@ -42,7 +39,7 @@ export async function POST(request) {
       );
     }
 
-    const rehabilitation = await RehabupazilawiseModel.create(body);
+    const rehabilitation = await UpazilaListModel.create(body);
 
     return NextResponse.json(
       {
@@ -52,7 +49,7 @@ export async function POST(request) {
       { status: 201 },
     );
   } catch (error) {
-    console.error("POST rehabilitation error:", error);
+    console.error("POST upazila list error:", error);
 
     return NextResponse.json(
       {
