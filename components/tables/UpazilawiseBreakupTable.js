@@ -8,16 +8,43 @@ import AddUpazilaModal from "../reehabilitation/forms/AddUpazilaModal.jsx";
 const UpazilawiseBreakupTable = () => {
   const { data, rehabupazilawise } = useContext(RehabilitationContext);
   const params = useParams();
-  const currentID = params.id.toString();
-  const filterData = data.filter((item) => item._id === currentID);
-  const tableData = rehabupazilawise.filter(
-    (item) => item.go_no === filterData[0].go_no,
-  );
+  const currentID = params?.id?.toString();
+  const filterData = data?.filter((item) => item._id === currentID) || [];
+  const goNo = filterData[0]?.go_no;
+
+  const tableData =
+    rehabupazilawise?.filter((item) => item.go_no === goNo) || [];
 
   const [showUpazilaModal, setShowUpazilaModal] = useState(false);
 
   const handleAddNewUpazila = () => {
     setShowUpazilaModal(!showUpazilaModal);
+  };
+
+  const handleFormSubmit = async (finalData) => {
+    console.log("Sending data:", finalData);
+
+    try {
+      const response = await fetch("/api/rehabupazilawise", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(finalData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to save");
+      }
+
+      console.log("Saved successfully:", result);
+
+      setShowUpazilaModal(false);
+    } catch (error) {
+      console.error("Save error:", error);
+    }
   };
 
   return (
@@ -43,9 +70,11 @@ const UpazilawiseBreakupTable = () => {
       </div>
       {showUpazilaModal && (
         <AddUpazilaModal
+          data={filterData[0]}
           onClose={() => {
             setShowUpazilaModal(!showUpazilaModal);
           }}
+          handleFormSubmit={handleFormSubmit}
         />
       )}
 
@@ -156,10 +185,10 @@ const UpazilawiseBreakupTable = () => {
                 const miscellaneousCost = materials[4];
 
                 const upazilaTotalAllocation = materials.reduce(
-                  (total, item) => total + (Number(item.amount) || 0),
+                  (total, item) => total + (Number(item.price) || 0),
                   0,
                 );
-                console.log(upazilaTotalAllocation);
+
                 return (
                   <tr
                     key={item?._id || index}
@@ -172,12 +201,12 @@ const UpazilawiseBreakupTable = () => {
 
                     {/* Upazila */}
                     <td className="border border-slate-300 px-4 py-3 capitalize font-bold">
-                      {item?.upazila?.name || "-"}
+                      {item?.upazila_name || "-"}
                     </td>
 
                     {/* Beneficiary */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(item?.beneficiaryCount ?? 0)}
+                      {toBanglaNumber(item?.total_beneficiary ?? 0)}
                     </td>
 
                     {/* ================= QUANTITY ================= */}
@@ -201,29 +230,29 @@ const UpazilawiseBreakupTable = () => {
 
                     {/* Seed */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(seed?.amount ?? 0)}
+                      {toBanglaNumber(seed?.price ?? 0)}
                     </td>
 
                     {/* DAP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(dap?.amount ?? 0)}
+                      {toBanglaNumber(dap?.price ?? 0)}
                     </td>
 
                     {/* MOP */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(mop?.amount ?? 0)}
+                      {toBanglaNumber(mop?.price ?? 0)}
                     </td>
 
                     {/* ================= OTHER COST ================= */}
 
                     {/* Transport */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(transportCost?.amount ?? 0)}
+                      {toBanglaNumber(transportCost?.price ?? 0)}
                     </td>
 
                     {/* Miscellaneous */}
                     <td className="border border-slate-300 px-2 py-3 text-center">
-                      {toBanglaNumber(miscellaneousCost?.amount ?? 0)}
+                      {toBanglaNumber(miscellaneousCost?.price ?? 0)}
                     </td>
 
                     {/* Grand Total */}

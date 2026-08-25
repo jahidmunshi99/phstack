@@ -1,17 +1,37 @@
 "use client";
 
 import { useContext } from "react";
-import { useFormContext } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { RehabilitationContext } from "../../../provider/reehabilitationProvider";
+import Input from "./Input";
 import Select from "./Select";
 
-const AddUpazilaModal = ({ onClose }) => {
-  const { upazilalist } = useContext(RehabilitationContext);
-  // const upazilaList = upazilalist.map((item) => item.upazila_name);
+const AddUpazilaModal = ({ onClose, data, handleFormSubmit }) => {
+  const { upazilalist = [] } = useContext(RehabilitationContext);
+  const { register, handleSubmit, reset, watch } = useForm();
+  const benificary = watch("total_beneficiary");
 
-  console.log(upazilalist);
+  const initialData = {
+    go_no: data.go_no,
+    title: data.title,
+    go_date: data.go_date,
+    session: data.session,
+    f_year: data.f_year,
+    createdAt: new Date().toISOString(),
+    createdBy: "admin",
+    materials: data.ingredients_per_person.map((item) => ({
+      name: item.name,
+      quantity: Number(item.quantity) * Number(benificary),
+      price: Number(item.price) * Number(benificary),
+    })),
+  };
 
-  const { register, watch } = useFormContext();
+  const handleAddUpdazilaInfo = (data) => {
+    const finalData = { ...data, ...initialData };
+    console.log(finalData);
+    handleFormSubmit(finalData);
+    reset();
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -23,18 +43,32 @@ const AddUpazilaModal = ({ onClose }) => {
 
       {/* Modal */}
       <div className="relative z-10 w-[90%] max-w-105 rounded-xl border border-slate-200 bg-white p-5 shadow-2xl">
-        <form>
+        <form onSubmit={handleSubmit(handleAddUpdazilaInfo)}>
           <div className="grid gap-4">
-            {/* Select */}
+            {/* Upazila */}
             <Select
               options={upazilalist}
-              value={watch("upazila_name")}
               label="Select Upazila"
               labelKey="upazila_name"
-              {...register("upazila_name", { required: true })}
+              {...register("upazila_name", {
+                required: "Please select an upazila",
+              })}
             />
 
-            {/* Number Input */}
+            {/* Beneficiary */}
+            <Input
+              label="Number of Beneficiary"
+              type="number"
+              placeholder="Enter number"
+              {...register("total_beneficiary", {
+                required: "Beneficiary number is required",
+                valueAsNumber: true,
+                min: {
+                  value: 1,
+                  message: "Number must be greater than 0",
+                },
+              })}
+            />
           </div>
 
           {/* Actions */}
@@ -42,7 +76,7 @@ const AddUpazilaModal = ({ onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              className="cursor-pointer rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-200"
+              className="cursor-pointer rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
             >
               Cancel
             </button>

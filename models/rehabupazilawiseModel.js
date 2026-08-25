@@ -8,7 +8,7 @@ const RehabupazilaWiseSchema = new mongoose.Schema({
     maxlength: 50,
   },
 
-  upazila: {
+  upazila_name: {
     type: String,
     required: true,
   },
@@ -50,7 +50,7 @@ const RehabupazilaWiseSchema = new mongoose.Schema({
     required: true,
   },
 
-  ingredients: [
+  materials: [
     {
       name: String,
       quantity: Number,
