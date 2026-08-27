@@ -1,4 +1,4 @@
-import { useParams } from "next/navigation.js";
+import { useParams, usePathname } from "next/navigation.js";
 import { useContext, useState } from "react";
 import { toBanglaNumber } from "../../lib/toBanglaNumber.js";
 import { RehabilitationContext } from "../../provider/reehabilitationProvider.jsx";
@@ -12,6 +12,9 @@ const UpazilawiseBreakupTable = () => {
   const filterData = data?.filter((item) => item._id === currentID) || [];
   const goNo = filterData[0]?.go_no;
 
+  const pathname = usePathname();
+  const isEdit = pathname.endsWith("/edit");
+
   const tableData =
     rehabupazilawise?.filter((item) => item.go_no === goNo) || [];
 
@@ -21,6 +24,7 @@ const UpazilawiseBreakupTable = () => {
     setShowUpazilaModal(!showUpazilaModal);
   };
 
+  // this function will handle upazila add and benificary numbers. Also while hit the save button it will post using RestAPI
   const handleFormSubmit = async (finalData) => {
     console.log("Sending data:", finalData);
 
@@ -54,17 +58,17 @@ const UpazilawiseBreakupTable = () => {
         <div className="flex justify-between items-center">
           <h2 className="font-bold text-slate-800">উপজেলা ভিত্তিক বিভাজন</h2>
           <div className="flex gap-3">
-            <Button
-              type="button"
-              className="rounded-lg bg-cyan-600 px-4 py-2 text-white"
-              onClick={() => {
-                setShowUpazilaModal(!showUpazilaModal);
-              }}
-            >
-              Add New
-            </Button>
-            <Button className="">Print</Button>
-            <Button>Export CSV</Button>
+            {isEdit && (
+              <Button
+                type="button"
+                className="rounded hover:bg-slate-800 hover:text-white px-4 py-2 text-slate-800"
+                onClick={() => {
+                  setShowUpazilaModal(!showUpazilaModal);
+                }}
+              >
+                Add New
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -140,6 +144,14 @@ const UpazilawiseBreakupTable = () => {
               >
                 মোট বরাদ্দ
               </th>
+              {isEdit && (
+                <th
+                  rowSpan={2}
+                  className="border border-slate-300 px-2 py-3 text-center font-bold"
+                >
+                  Action
+                </th>
+              )}
             </tr>
 
             {/* Sub Header */}
@@ -186,7 +198,7 @@ const UpazilawiseBreakupTable = () => {
 
                 const upazilaTotalAllocation = materials.reduce(
                   (total, item) => total + (Number(item.price) || 0),
-                  0,
+                  0
                 );
 
                 return (
@@ -259,6 +271,11 @@ const UpazilawiseBreakupTable = () => {
                     <td className="border border-slate-300 bg-cyan-50 px-4 py-3 text-center font-bold text-cyan-700">
                       {toBanglaNumber(upazilaTotalAllocation ?? 0)}
                     </td>
+                    {isEdit && (
+                      <td className="p-2 text-red-700 border border-slate-300 bg-cyan-50 px-4 py-3 text-center font-bold">
+                        Del
+                      </td>
+                    )}
                   </tr>
                 );
               })
@@ -333,6 +350,11 @@ const UpazilawiseBreakupTable = () => {
               <td className="border border-slate-300 bg-cyan-50 px-2 py-4 text-center text-cyan-700">
                 ৮.৪৪২৫
               </td>
+              {isEdit && (
+                <td className="border border-slate-300 bg-cyan-50 px-2 py-4 text-center text-cyan-700">
+                  -
+                </td>
+              )}
             </tr>
           </tfoot>
         </table>

@@ -2,9 +2,9 @@
 import Button from "@/components/common/Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useContext } from "react";
-// import { useParams } from "next/navigation";
+import { useContext, useRef } from "react";
 import { IoReturnDownBack } from "react-icons/io5";
+import { useReactToPrint } from "react-to-print";
 import RehabilitationBasicInfo from "../../../../components/reehabilitation/RehabilitationBasicInfo";
 import { IngredientsBreakupTable } from "../../../../components/tables/IngredientsBreakupTable";
 import UpazilawiseBreakupTable from "../../../../components/tables/UpazilawiseBreakupTable";
@@ -15,11 +15,37 @@ export default function RehabilitationViewPage() {
   const correntId = usePathname().slice((0, 16));
   const currentData = data.filter((item) => item._id === correntId);
   const currentDataupazilawise = rehabupazilawise.filter(
-    (item) => item.id === currentData[0]._id,
+    (item) => item.id === currentData[0]._id
   );
+
+  // This function will handle Print Upazila table wise information
+
+  const componentRef = useRef(null);
+
+  const print = useReactToPrint({
+    contentRef: componentRef,
+    documentTitle: "Rehabilitation Report",
+  });
+
+  const handlePrint = () => {
+    print();
+  };
 
   return (
     <>
+      {/* This section only for print */}
+      <div className="hidden">
+        <div ref={componentRef} className="min-w-fit m-4">
+          <div className="text-center text-2xl mt-4 font-bold">
+            {currentData[0].title}
+          </div>
+
+          <UpazilawiseBreakupTable data={currentDataupazilawise} />
+        </div>
+      </div>
+
+      {/* main section is here */}
+
       <div className="flex justify-between">
         <div className="grid-cols-1">
           <Link href="/rehabilitation" className="inline-block">
@@ -34,16 +60,18 @@ export default function RehabilitationViewPage() {
               Add New
             </Button>
           </Link> */}
-          <Link href="/rehabilitation" className="inline-block">
-            <Button className="hover:bg-slate-900 hover:text-white">
-              Export CSV
-            </Button>
-          </Link>
-          <Link href="/rehabilitation" className="inline-block">
-            <Button className="hover:bg-slate-900 hover:text-white">
-              Print
-            </Button>
-          </Link>
+          <Button className="hover:bg-slate-900 hover:text-white">
+            Export CSV
+          </Button>
+
+          <Button
+            className="hover:bg-slate-900 hover:text-white"
+            onClick={() => {
+              print();
+            }}
+          >
+            Print
+          </Button>
         </div>
       </div>
 
@@ -86,62 +114,5 @@ export default function RehabilitationViewPage() {
 
       <UpazilawiseBreakupTable data={currentDataupazilawise} />
     </>
-  );
-}
-
-function Input({ label, value = "", type = "text", ...props }) {
-  return (
-    <div>
-      <label className="mb-1 block text-sm font-medium text-slate-700">
-        {label}
-      </label>
-
-      <input
-        {...props}
-        type={type}
-        defaultValue={value}
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-blue-500 focus:outline-none"
-      />
-    </div>
-  );
-}
-
-function SummaryCard({ title, value }) {
-  return (
-    <div className="rounded-xl bg-white p-6 shadow">
-      <p className="text-sm text-slate-500">{title}</p>
-      <h3 className="mt-2 text-3xl font-bold text-slate-800">{value}</h3>
-    </div>
-  );
-}
-
-function TH({ children }) {
-  return <th className="border p-2 text-left font-semibold">{children}</th>;
-}
-
-function Row({ upazila, beneficiary }) {
-  return (
-    <tr className="hover:bg-slate-50">
-      <td className="border p-2">{upazila}</td>
-      <td className="border p-2">{beneficiary}</td>
-      <td className="border p-2">{beneficiary}</td>
-      <td className="border p-2">{beneficiary}</td>
-      <td className="border p-2">0</td>
-      <td className="border p-2">0</td>
-      <td className="border p-2">{beneficiary}</td>
-      <td className="border p-2">0</td>
-
-      <td className="border p-2">
-        <div className="flex gap-2">
-          <button className="rounded bg-amber-500 px-3 py-1 text-white">
-            Edit
-          </button>
-
-          <button className="rounded bg-red-500 px-3 py-1 text-white">
-            Delete
-          </button>
-        </div>
-      </td>
-    </tr>
   );
 }
