@@ -273,7 +273,14 @@ const UpazilawiseBreakupTable = () => {
                     </td>
                     {isEdit && (
                       <td className="p-2 text-red-700 border border-slate-300 bg-cyan-50 px-4 py-3 text-center font-bold">
-                        Del
+                        <button
+                          className="cursor-pointer"
+                          onClick={() => {
+                            alert("Click from Dele");
+                          }}
+                        >
+                          Del
+                        </button>
                       </td>
                     )}
                   </tr>

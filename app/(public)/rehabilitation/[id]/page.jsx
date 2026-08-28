@@ -3,6 +3,9 @@ import Button from "@/components/common/Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useContext, useRef } from "react";
+import { BsFiletypeCsv, BsThreeDotsVertical } from "react-icons/bs";
+import { FiPrinter } from "react-icons/fi";
+import { IoMdCloudDownload } from "react-icons/io";
 import { IoReturnDownBack } from "react-icons/io5";
 import { useReactToPrint } from "react-to-print";
 import RehabilitationBasicInfo from "../../../../components/reehabilitation/RehabilitationBasicInfo";
@@ -54,14 +57,14 @@ export default function RehabilitationViewPage() {
             </Button>
           </Link>
         </div>
-        <div className="flex justify-items-end gap-4">
+        <div className="flex justify-items-end gap-2">
           {/* <Link href="/rehabilitation" className="inline-block">
             <Button className="hover:bg-slate-900 hover:text-white">
               Add New
             </Button>
           </Link> */}
           <Button className="hover:bg-slate-900 hover:text-white">
-            Export CSV
+            <BsFiletypeCsv size={23} />
           </Button>
 
           <Button
@@ -70,7 +73,13 @@ export default function RehabilitationViewPage() {
               print();
             }}
           >
-            Print
+            <FiPrinter size={23} />
+          </Button>
+          <Button>
+            <IoMdCloudDownload size={25} />
+          </Button>
+          <Button className="px-2">
+            <BsThreeDotsVertical size={22} />
           </Button>
         </div>
       </div>
